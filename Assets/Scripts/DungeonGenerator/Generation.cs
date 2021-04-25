@@ -9,66 +9,162 @@ public class Generation : MonoBehaviour
     GameObject tile;
     GameObject[,] tileArray;
 
-    public GameObject[] Tiles = new GameObject[100];
+    public GameObject[] tiles = new GameObject[10];
 
-    int[,] arrayList;
-    int height;
-    int width;
-    int x = 0;
-    int y = 0;
-    void readData()
-    {
-        arrayList = new int[,]{ 
-            {1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            {1, 3, 0, 0, 0, 0, 0, 0, 1 }, 
-            {1, 0, 0, 0, 0, 0, 0, 0, 1 }, 
-            {1, 0, 0, 0, 0, 0, 0, 0, 1 }, 
-            {1, 0, 0, 0, 0, 0, 0, 2, 1 },
-            {1, 0, 0, 0, 0, 0, 0, 0, 1 }, 
-            {1, 0, 0, 0, 0, 0, 0, 0, 1 }, 
-            {1, 1, 1, 1, 1, 1, 1, 1, 1 },
-        };
+    int[,] room;
+    public int height = 30;
+    public int width = 30;
+    public int wall_width = 2;
+    public int smooth8 = 3;
+    public int smooth4 = 3;
 
-        height = arrayList.GetLength(0);
-        width = arrayList.GetLength(1);
+    // 4 szomszedot nez
+    int getPointValue4(int x, int y) {
+
+        if (x < 0 || x >= width || y < 0 || y >= height) {
+            Debug.Log("Index out of bounds: " + x + ":" + y);
+            return -1;
+        }
+
+        int value = 0;
+
+        for (int y_offset = -1; y_offset < 2; y_offset++) {
+            for (int x_offset = -1; x_offset < 2; x_offset++) {
+                int xx = x + x_offset;
+                int yy = y + y_offset;
+                if (xx >= 0 && xx < width && yy >= 0 && yy < height) {
+                    if (x_offset != y_offset) {
+                        if (room[yy, xx] == 1) {
+                            value += 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        return value;
     }
 
-    void DrawMap()
-    {
-        tileArray = new GameObject[(height*100), (width*100)];
+    // 8 szomszedot nez
+    int getPointValue8(int x, int y) {
 
-        for (int i = 0; i < height; i++)
-        {
-            for (int j = 0; j < width; j++)
-            {
-                print(i);
-                print(j);
-                if (arrayList[i,j] == 1)
-                {
-                    tileArray[x, y] = Tiles[0];
-                    tile = tileArray[x, y];
-                    GameObject.Instantiate(tile, new Vector3(i, j, 0), Quaternion.identity);                    
+        if (x < 0 || x >= width || y < 0 || y >= height) {
+            Debug.Log("Index out of bounds: " + x + ":" + y);
+            return -1;
+        }
+
+        int value = 0;
+
+        for (int y_offset = -1; y_offset < 2; y_offset++) {
+            for (int x_offset = -1; x_offset < 2; x_offset++) {
+                int xx = x + x_offset;
+                int yy = y + y_offset;
+                if (xx >= 0 && xx < width && yy >= 0 && yy < height) {
+                    if (x_offset != 0 || y_offset != 0){
+                        if (room[yy, xx] == 1) {
+                            value += 1;
+                        }
+                    }
                 }
-                else if (arrayList[i, j] == 0)
-                {
-                    tileArray[x, y] = Tiles[1];
-                    tile = tileArray[x, y];
-                    GameObject.Instantiate(tile, new Vector3(i, j, 0), Quaternion.identity);                   
+            }
+        }
+
+        return value;
+    }
+
+    void smoothRoom8(int times = 1) {
+        for (int i = 0; i < times; i++) {
+            // uj ures szoba amibe irjuk a valtozasokat
+            int[, ] newRoom = new int[height, width];
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    newRoom[y, x] = -1;
                 }
-                else if (arrayList[i, j] == 2 || arrayList[i, j] == 3 )
-                {
-                    tileArray[x, y] = Tiles[2];
-                    tile = tileArray[x, y];
-                    GameObject.Instantiate(tile, new Vector3(i, j, 0), Quaternion.identity);                    
+            }
+
+            // vegig megyunk az adott szoban
+            for (int y = 0+wall_width; y < height-wall_width; y++) {
+                for (int x = 0+wall_width; x < width-wall_width; x++) {
+                    if (getPointValue8(x, y) >= 5) {
+                        newRoom[y, x] = 1;
+                    }
+                    else {
+                        newRoom[y, x] = 0;
+                    }
+                }
+            }
+
+            // valtozasokat visszairjuk az eredetibe
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    if (newRoom[y, x] != -1) {
+                        room[y, x] = newRoom[y, x];
+                    }
                 }
             }
         }
     }
+
+    void smoothRoom4(int times = 1) {
+        for (int i = 0; i < times; i++) {
+            // uj ures szoba amibe irjuk a valtozasokat
+            int[, ] newRoom = new int[height, width];
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    newRoom[y, x] = -1;
+                }
+            }
+
+            // vegig megyunk az adott szoban
+            for (int y = 0+wall_width; y < height-wall_width; y++) {
+                for (int x = 0+wall_width; x < width-wall_width; x++) {
+                    if (getPointValue4(x, y) < 2 && room[y, x] == 1) 
+                        newRoom[y, x] = 0;
+                    if (getPointValue4(x, y) > 3 && room[y, x] == 0)
+                        newRoom[y, x] = 1;
+                }
+            }
+
+            // valtozasokat visszairjuk az eredetibe
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    if (newRoom[y, x] != -1) {
+                        room[y, x] = newRoom[y, x];
+                    }
+                }
+            }
+        }
+    }
+
+    void generateRoom()
+    {
+        room = new int[height, width];
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (y < wall_width || y > height-1-wall_width || x < wall_width || x > width-1-wall_width) {
+                    room[y, x] = 1;
+                }
+                else {
+                    room[y, x] = Random.Range(0, 2);
+                }
+            }
+        }
+    }
+
+    void drawRoom()
+    {
+        for (int y = 0; y < height; y++)
+            for (int x = 0; x < width; x++)
+                GameObject.Instantiate(tiles[room[y, x]], new Vector3(y-height/2, x-width/2, 0), Quaternion.identity);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        readData();
-        DrawMap();
+        generateRoom();
+        smoothRoom8(smooth8);
+        smoothRoom4(smooth4);
+        drawRoom();
     }
-
 }
