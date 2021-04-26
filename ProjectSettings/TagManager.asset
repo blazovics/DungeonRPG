@@ -23,8 +23,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - collider
+  - tilemap
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1558267701
+    locked: 0
+  - name: Collider
+    uniqueID: 3806932347
     locked: 0
