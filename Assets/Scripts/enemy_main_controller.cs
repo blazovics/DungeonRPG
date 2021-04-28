@@ -23,7 +23,7 @@ public class enemy_main_controller : MonoBehaviour
     protected float prevX;
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         startingPosition = transform.position;
         path = GetComponent<AIPath>();
@@ -40,8 +40,6 @@ public class enemy_main_controller : MonoBehaviour
 
     protected void Move()
     {
-        if (horizontal > 0) animator.SetFloat("Move", 0.5f);
-        else animator.SetFloat("Move", -0.5f);
         Vector2 position = transform.position;
         position.x = position.x + horizontal * speed * Time.deltaTime;
         position.y = position.y + vertical * speed * Time.deltaTime;
@@ -74,12 +72,7 @@ public class enemy_main_controller : MonoBehaviour
         return false;
     }
 
-    protected void animationDuringPathSearch()
-    {
-        if (prevX > transform.position.x) animator.SetFloat("Move", -0.5f);
-        else animator.SetFloat("Move", 0.5f);
-        prevX = transform.position.x;
-    }
+
 
 }
 
