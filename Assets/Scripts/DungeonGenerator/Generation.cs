@@ -86,10 +86,14 @@ public class Generation : MonoBehaviour
             for (int y = 0+wall_width; y < height-wall_width; y++) {
                 for (int x = 0+wall_width; x < width-wall_width; x++) {
                     if (getPointValue8(x, y) >= 5) {
-                        newRoom[y, x] = 1;
+                        if (room[y, x] != 1) {
+                            newRoom[y, x] = 1;
+                        }
                     }
                     else {
-                        newRoom[y, x] = 0;
+                        if (room[y, x] != 0) {
+                            newRoom[y, x] = 0;
+                        }
                     }
                 }
             }
@@ -154,7 +158,7 @@ public class Generation : MonoBehaviour
 
     void drawRoom()
     {
-        for (int y = 0; y < height; y++)
+        for (int y = height-1; y >= 0; y--)
             for (int x = 0; x < width; x++)
                 GameObject.Instantiate(tiles[room[y, x]], new Vector3(y-height/2, x-width/2, 0), Quaternion.identity);
     }
