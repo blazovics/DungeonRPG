@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Generation : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class Generation : MonoBehaviour
     GameObject[,] tileArray;
 
     public GameObject[] tiles = new GameObject[10];
+
+    public Tilemap level;
+    public TerrainTile wallTile;
+    public TerrainTile groundTile;
 
     int[,] room;
     public int height = 30;
@@ -156,7 +161,16 @@ public class Generation : MonoBehaviour
     {
         for (int y = 0; y < height; y++)
             for (int x = 0; x < width; x++)
-                GameObject.Instantiate(tiles[room[y, x]], new Vector3(y-height/2, x-width/2, 0), Quaternion.identity);
+                if (room[y,x] == 1)
+                {
+                    //GameObject.Instantiate(tiles[1], new Vector3(y - height / 2, x - width / 2, 0), Quaternion.identity);
+                    level.SetTile(new Vector3Int(y - height / 2, x - width / 2, 0), wallTile);
+                }
+                else if (room[y, x] == 0)
+                {
+                    //GameObject.Instantiate(tiles[0], new Vector3(y - height / 2, x - width / 2, 0), Quaternion.identity);
+                    level.SetTile(new Vector3Int(y - height / 2, x - width / 2, 0), groundTile);
+                }
     }
 
     // Start is called before the first frame update
