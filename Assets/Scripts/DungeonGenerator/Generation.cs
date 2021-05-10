@@ -13,10 +13,10 @@ public class Generation : MonoBehaviour
     public GameObject[] tiles = new GameObject[10];
 
     public Tilemap level;
-    public TerrainTile wallTile;
-    public TerrainTile groundTile;
+    public Tile wallTile;
+    public Tile groundTile;
 
-    int[,] room;
+    public int[,] room;
     public int height = 30;
     public int width = 30;
     public int wall_width = 2;
