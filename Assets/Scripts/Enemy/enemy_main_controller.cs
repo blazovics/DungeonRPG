@@ -45,13 +45,13 @@ public class enemy_main_controller : MonoBehaviour
         position.y = position.y + vertical * speed * Time.deltaTime;
         transform.position = position;
     }
-
+    /*
     protected bool PlayerIsInChaseDistance()
     {
         float distanceFromPlayer = Mathf.Sqrt(Mathf.Abs(player.position.x - transform.position.x) + Mathf.Abs(player.position.y - transform.position.y));
         return distanceFromPlayer < chaseDistance;
     }
-
+    */
     
     protected void GetToSomewhere(Vector2 where)
     {

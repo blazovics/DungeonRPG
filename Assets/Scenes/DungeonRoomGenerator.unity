@@ -247,8 +247,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   level: {fileID: 1187261920}
-  wallTile: {fileID: 11400000, guid: 8266afcc7a40e3643bab37af767ba831, type: 2}
-  groundTile: {fileID: 11400000, guid: 79a91734cc796f04490af70cbf744df8, type: 2}
+  wallTile: {fileID: 11400000, guid: 323e477cc68395d4aa6f6c2d2c949dca, type: 2}
+  groundTile: {fileID: 11400000, guid: b3c8400f4c4339a44ab5a10beec8d207, type: 2}
+  torch: {fileID: 11400000, guid: d645c28dc79055f46a0b93d1d289d833, type: 2}
   height: 30
   width: 30
   wall_width: 2

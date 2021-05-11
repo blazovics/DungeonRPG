@@ -30,13 +30,16 @@ public class enemy1_controller : enemy_main_controller
                     }
                     Move();
                     animationDuringWander();
+                    /*
                     if (PlayerIsInChaseDistance())
                     {
                         enemyState = enemyStates.CHASE;
                         prevX = transform.position.x;
                     }
+                    */
                     break;
                 }
+                /*
             case enemyStates.CHASE:
                 {
                     path.canSearch = true;  
@@ -51,6 +54,7 @@ public class enemy1_controller : enemy_main_controller
                     }
                     break;
                 }
+                */
             case enemyStates.ATTACK:
                 {
                     animator.SetBool("Attack", true);

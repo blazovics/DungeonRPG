@@ -15,7 +15,7 @@ public class Generation : MonoBehaviour
     public Tilemap level;
     public Tile wallTile;
     public Tile groundTile;
-
+    public AnimatedTile torch;
     public int[,] room;
     public int height = 30;
     public int width = 30;
@@ -164,7 +164,7 @@ public class Generation : MonoBehaviour
                 if (room[y,x] == 1)
                 {
                     //GameObject.Instantiate(tiles[1], new Vector3(y - height / 2, x - width / 2, 0), Quaternion.identity);
-                    level.SetTile(new Vector3Int(y - height / 2, x - width / 2, 0), wallTile);
+                    level.SetTile(new Vector3Int(y - height / 2, x - width / 2, 0), torch);
                 }
                 else if (room[y, x] == 0)
                 {

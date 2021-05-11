@@ -37,13 +37,17 @@ public class enemy2_controller : enemy_main_controller
                     }
                     Move();
                     animationDuringWander();
+                    /*
                     if (PlayerIsInChaseDistance())
                     {
                         enemyState = enemyStates.CHASE;
                         prevX = transform.position.x;
                     }
+                    */
                     break;
+                    
                 }
+                /*
             case enemyStates.CHASE:
                 {
                     path.canSearch = true;
@@ -59,6 +63,7 @@ public class enemy2_controller : enemy_main_controller
                     }
                     break;
                 }
+                */
             case enemyStates.ATTACK:
                 {
                     animationDuringAttack(true);
