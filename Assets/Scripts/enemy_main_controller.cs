@@ -28,6 +28,8 @@ public class enemy_main_controller : MonoBehaviour
         startingPosition = transform.position;
         path = GetComponent<AIPath>();
         animator = GetComponent<Animator>();
+        AIDestinationSetter dest = GetComponent<AIDestinationSetter>();
+        dest.target = player;
     }
 
     // Update is called once per frame

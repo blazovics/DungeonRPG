@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class flying_eye_projectile : MonoBehaviour
+public class projectile_controller : MonoBehaviour
 {
 
     Rigidbody2D rigidbody2d;

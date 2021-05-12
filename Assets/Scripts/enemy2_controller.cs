@@ -103,7 +103,7 @@ public class enemy2_controller : enemy_main_controller
         float divider = Mathf.Max(Mathf.Abs(player.position.x - transform.position.x), Mathf.Abs(player.position.y - transform.position.y));
         Vector2 direction = new Vector2((player.position.x - transform.position.x)/divider, (player.position.y - transform.position.y)/divider);
         GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + direction , Quaternion.identity);
-        flying_eye_projectile projectile = projectileObject.GetComponent<flying_eye_projectile>();
+        projectile_controller projectile = projectileObject.GetComponent<projectile_controller>();
         projectile.Launch(direction, projectileSpeed);
     }
 
