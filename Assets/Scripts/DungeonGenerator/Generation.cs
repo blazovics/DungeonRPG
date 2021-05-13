@@ -13,9 +13,10 @@ public class Generation : MonoBehaviour
     public GameObject[] tiles = new GameObject[10];
 
     public Tilemap level;
-    public Tile wallTile;
-    public Tile groundTile;
+    public WeightedRandomTile wallTile;
+    public RandomTile groundTile;
     public AnimatedTile torch;
+    public AnimatedTile banner;
     public int[,] room;
     public int height = 30;
     public int width = 30;
@@ -164,7 +165,17 @@ public class Generation : MonoBehaviour
                 if (room[y,x] == 1)
                 {
                     //GameObject.Instantiate(tiles[1], new Vector3(y - height / 2, x - width / 2, 0), Quaternion.identity);
-                    level.SetTile(new Vector3Int(y - height / 2, x - width / 2, 0), torch);
+                    int rand = Random.Range(0, 30);
+                    if (rand == 0)
+                    {
+                        level.SetTile(new Vector3Int(y - height / 2, x - width / 2, 0), torch);
+                    }
+                    else if (rand == 1)
+                    {
+                        level.SetTile(new Vector3Int(y - height / 2, x - width / 2, 0), banner);
+                    }
+                    else
+                    level.SetTile(new Vector3Int(y - height / 2, x - width / 2, 0), wallTile);
                 }
                 else if (room[y, x] == 0)
                 {
