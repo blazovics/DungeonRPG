@@ -28,19 +28,19 @@ public class EnemySpawner : MonoBehaviour
     }
     void Spawning()
     {
-        for(int i = 0; i < level*2; i++)
+        for(int i = 0; i < level*40; i++)
         {
             List<GameObject> enemies = new List<GameObject>();
             while (true)
             {
-                randX = UnityEngine.Random.Range(-14, 15);
-                randY = UnityEngine.Random.Range(-14, 15);
+                randX = UnityEngine.Random.Range(-74, 75);
+                randY = UnityEngine.Random.Range(-74, 75);
                 if (mapgen.map.getWholeMap().GetTile(new Vector3Int(randX,randY,0)) == mapgen.groundTile &&
                     mapgen.map.getWholeMap().GetTile(new Vector3Int(randX-1, randY,0)) == mapgen.groundTile &&
                     mapgen.map.getWholeMap().GetTile(new Vector3Int(randX+1, randY,0)) == mapgen.groundTile &&
                     mapgen.map.getWholeMap().GetTile(new Vector3Int(randX, randY-1,0)) == mapgen.groundTile &&
                     mapgen.map.getWholeMap().GetTile(new Vector3Int(randX, randY+1,0)) == mapgen.groundTile &&
-                    Vector2.Distance(player.transform.position, new Vector2(randX,randY)) > 5 && 
+                    Vector2.Distance(player.transform.position, new Vector2(randX,randY)) > 10 && 
                     !enemies.Any(e => e.transform.position == new Vector3(randX, randY,0)))
                 { break; }
             }
