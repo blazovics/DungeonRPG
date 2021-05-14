@@ -42,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
                     mapgen.level.GetTile(new Vector3Int(randX, randY-1,0)) == mapgen.groundTile &&
                     mapgen.level.GetTile(new Vector3Int(randX, randY+1,0)) == mapgen.groundTile &&
                     Vector2.Distance(player.transform.position, new Vector2(randX,randY)) > 5 && 
-                    !enemies.Any(e => e.transform.position == new Vector3(randX, randY,0)))
+                    !enemies.Any(e => e.transform.position == new Vector3(randX,randY,0)))
                 { break; }
             }
             Instantiate(enemy, new Vector2(randX, randY), Quaternion.identity);
