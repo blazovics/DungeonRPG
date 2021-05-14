@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         level = 2;
-        //Spawning();
+        Spawning();
     }
 
     // Update is called once per frame
@@ -26,7 +26,6 @@ public class EnemySpawner : MonoBehaviour
     {
         
     }
-    /*
     void Spawning()
     {
         for(int i = 0; i < level*2; i++)
@@ -36,11 +35,11 @@ public class EnemySpawner : MonoBehaviour
             {
                 randX = UnityEngine.Random.Range(-14, 15);
                 randY = UnityEngine.Random.Range(-14, 15);
-                if (mapgen.level.GetTile(new Vector3Int(randX,randY,0)) == mapgen.groundTile && 
-                    mapgen.level.GetTile(new Vector3Int(randX-1, randY,0)) == mapgen.groundTile &&
-                    mapgen.level.GetTile(new Vector3Int(randX+1, randY,0)) == mapgen.groundTile &&
-                    mapgen.level.GetTile(new Vector3Int(randX, randY-1,0)) == mapgen.groundTile &&
-                    mapgen.level.GetTile(new Vector3Int(randX, randY+1,0)) == mapgen.groundTile &&
+                if (mapgen.map.getWholeMap().GetTile(new Vector3Int(randX,randY,0)) == mapgen.groundTile &&
+                    mapgen.map.getWholeMap().GetTile(new Vector3Int(randX-1, randY,0)) == mapgen.groundTile &&
+                    mapgen.map.getWholeMap().GetTile(new Vector3Int(randX+1, randY,0)) == mapgen.groundTile &&
+                    mapgen.map.getWholeMap().GetTile(new Vector3Int(randX, randY-1,0)) == mapgen.groundTile &&
+                    mapgen.map.getWholeMap().GetTile(new Vector3Int(randX, randY+1,0)) == mapgen.groundTile &&
                     Vector2.Distance(player.transform.position, new Vector2(randX,randY)) > 5 && 
                     !enemies.Any(e => e.transform.position == new Vector3(randX, randY,0)))
                 { break; }
@@ -48,6 +47,5 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemy, new Vector2(randX, randY), Quaternion.identity);
             enemies.Add(enemy);
         }
-    }
-    */
+    }    
 }

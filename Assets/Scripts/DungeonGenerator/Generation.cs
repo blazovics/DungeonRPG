@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Generation : MonoBehaviour
 {
-    GameObject tile;
-    GameObject[,] tileArray;
-
     public GameObject[] tiles = new GameObject[10];
+    public Tilemap tilemap;
+    public WeightedRandomTile wallTile;
+    public RandomTile groundTile;
+    public Map map;
 
     public int width = 30;
     public int wall_width = 2;
@@ -19,19 +21,19 @@ public class Generation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Map map = new Map(5, 10, tiles);
+        map = new Map(5, 10, tiles, tilemap, groundTile, wallTile);
         map.drawWholeMap();
         //map.rooms[0, 0].drawRoom();
     }
 
-    class Room {
+    public class Room {
         public int x;
         public int y;
         public int width;
         public int wall_width;
         public int[,] data;
         public bool[] doors;
-        GameObject[] tiles;
+        GameObject[] tiles;        
 
         public Room(int x, int y, GameObject[] tiles, bool[] doors = null, int width = 30, int wall_width = 2) {
             this.x = x;
@@ -225,28 +227,50 @@ public class Generation : MonoBehaviour
         }
     }
 
-    class Map {
+    public class Map {
         int width;
         int max_rooms;
         public Room[,] rooms;
         List<(int x, int y)> path;
         GameObject[] tiles;
-        
-        public Map(int width, int max_rooms, GameObject[] tiles) {
+        Tilemap wholeMap;
+        WeightedRandomTile wallTile;
+        RandomTile groundTile;
+
+        public Tilemap getWholeMap()
+        {
+            return wholeMap;
+        }
+
+
+        public Map(int width, int max_rooms, GameObject[] tiles,Tilemap wholeMap, RandomTile groundTile, WeightedRandomTile wallTile) {
             this.width = width;
             this.max_rooms = max_rooms;
             this.rooms = new Room[width, width];
             this.tiles = tiles;
+            this.wholeMap = wholeMap;
+            this.groundTile = groundTile;
+            this.wallTile = wallTile;
 
             init();
             makePath();
         }
 
         public void drawWholeMap() {
-            int max_width = width * rooms[0, 0].width;
+            int max_width = width * rooms[0, 0].width;            
             for (int y = 0; y < max_width; y++) {
                 for (int x = 0; x < max_width; x++) {
-                    GameObject.Instantiate(tiles[rooms[(int)(y/30), (int)(x/30)].data[(int)(y%30), (int)(x%30)]], new Vector3(y-max_width/2, x-max_width/2, 0), Quaternion.identity);
+                    //print(rooms[(int)(y / 30), (int)(x / 30)].data[(int)(y % 30), (int)(x % 30)]);
+                    //GameObject.Instantiate(tiles[rooms[(int)(y/30), (int)(x/30)].data[(int)(y%30), (int)(x%30)]], new Vector3(y-max_width/2, x-max_width/2, 0), Quaternion.identity);
+                    
+                    if (rooms[(int)(y / 30), (int)(x / 30)].data[(int)(y % 30), (int)(x % 30)] == 0)
+                    {
+                        wholeMap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), groundTile);
+                    }
+                    else
+                    {
+                        wholeMap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), wallTile);
+                    }
                 }
             }
         }

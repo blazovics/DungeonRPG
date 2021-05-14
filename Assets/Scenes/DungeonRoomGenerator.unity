@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -149,6 +150,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ea3b3c173423048813d40d94e27a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1747423779}
+  cameraDistance: 30
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -236,6 +251,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiles:
+  - {fileID: 3799085107892282247, guid: 0b66244f15b707a42abf8ee883e2204a, type: 3}
+  - {fileID: 7252892876908121066, guid: 775fe075f2613914b8675c2bce905e29, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -244,17 +261,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  level: {fileID: 0}
-  wallTile: {fileID: 0}
-  groundTile: {fileID: 0}
-  torch: {fileID: 0}
-  height: 30
+  tilemap: {fileID: 1187261920}
+  wallTile: {fileID: 11400000, guid: d41610fb34a2930468be32418f8dc5cc, type: 2}
+  groundTile: {fileID: 11400000, guid: 2a6d78672cdb3c642879aebc078088f8, type: 2}
   width: 30
   wall_width: 2
-  smooth8: 3
-  smooth4: 3
 --- !u!4 &868613116
 Transform:
   m_ObjectHideFlags: 0
@@ -382,7 +393,7 @@ GameObject:
   - component: {fileID: 1187261920}
   - component: {fileID: 1187261919}
   - component: {fileID: 1187261921}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,8 +451,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1655247765
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -505,6 +516,11 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!4 &1747423779 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1689195660476703251, guid: 19031bdc843cd7f4fad16f328a36deac, type: 3}
+  m_PrefabInstance: {fileID: 904074379}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2060890946
 GameObject:
   m_ObjectHideFlags: 0
