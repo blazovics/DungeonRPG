@@ -74,7 +74,7 @@ public class Generation : MonoBehaviour
                 {
                     for (int i = 0; i < 4; i++)
                     {
-                    //Potenciális hiba, true false felcserélése
+                    //Potenciï¿½lis hiba, true false felcserï¿½lï¿½se
                         rooms[x, y].doors[i] = Random.Range(0, 2) == 0 ? true : false;
                     }
 
@@ -114,7 +114,7 @@ public class Generation : MonoBehaviour
             int[] dir1 = new int[] { 1, 2, 5 };
             System.Random r = new System.Random();
 
-            //potenciális hiba : minimap kihagyva
+            //potenciï¿½lis hiba : minimap kihagyva
             //generation every room
             while (this.max_rooms > nIndex)
             {
@@ -435,7 +435,7 @@ public class Generation : MonoBehaviour
                     }
                     else if (rand == 1)
                     {
-                        level.SetTile(new Vector3Int(y - height / 2, x - width / 2, 0), banner);
+                        level.SetTile(new Vector3Int(y - height / 2, x - width / 2, 0), wallTile); //nincs meg banner
                     }
                     else
                         level.SetTile(new Vector3Int(y - height / 2, x - width / 2, 0), wallTile);
