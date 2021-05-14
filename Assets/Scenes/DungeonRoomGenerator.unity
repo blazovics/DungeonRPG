@@ -232,12 +232,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 868613114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8cf5d83df40ce844923d17c8e7191b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 8134c39904202be49abfeb6e98db496a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 3799085107892282247, guid: 0b66244f15b707a42abf8ee883e2204a, type: 3}
-  - {fileID: 7252892876908121066, guid: 775fe075f2613914b8675c2bce905e29, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -246,15 +244,17 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  level: {fileID: 1187261920}
-  wallTile: {fileID: 11400000, guid: 323e477cc68395d4aa6f6c2d2c949dca, type: 2}
-  groundTile: {fileID: 11400000, guid: b3c8400f4c4339a44ab5a10beec8d207, type: 2}
-  torch: {fileID: 11400000, guid: d645c28dc79055f46a0b93d1d289d833, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  level: {fileID: 0}
+  wallTile: {fileID: 0}
+  groundTile: {fileID: 0}
+  torch: {fileID: 0}
   height: 30
   width: 30
   wall_width: 2
   smooth8: 3
-  smooth4: 5
+  smooth4: 3
 --- !u!4 &868613116
 Transform:
   m_ObjectHideFlags: 0
@@ -537,7 +537,7 @@ MonoBehaviour:
   level: 0
   enemy: {fileID: 1561928911554837302, guid: 7d15f606159f7714db332b4fa7fa614d, type: 3}
   player: {fileID: 1689195660476703255, guid: 19031bdc843cd7f4fad16f328a36deac, type: 3}
-  mapgen: {fileID: 868613115}
+  mapgen: {fileID: 0}
 --- !u!4 &2060890948
 Transform:
   m_ObjectHideFlags: 0

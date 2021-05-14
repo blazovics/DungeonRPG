@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         level = 2;
-        Spawning();
+        //Spawning();
     }
 
     // Update is called once per frame
@@ -26,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
     {
         
     }
-
+    /*
     void Spawning()
     {
         for(int i = 0; i < level*2; i++)
@@ -49,4 +49,5 @@ public class EnemySpawner : MonoBehaviour
             enemies.Add(enemy);
         }
     }
+    */
 }
