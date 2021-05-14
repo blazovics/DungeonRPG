@@ -19,16 +19,17 @@ public class Generation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Map map = new Map(4, 10, tiles);
-        map.rooms[0, 3].drawRoom();
+        Map map = new Map(5, 10, tiles);
+        map.drawWholeMap();
+        //map.rooms[0, 0].drawRoom();
     }
 
     class Room {
-        int x;
-        int y;
-        int width;
-        int wall_width;
-        int[,] data;
+        public int x;
+        public int y;
+        public int width;
+        public int wall_width;
+        public int[,] data;
         public bool[] doors;
         GameObject[] tiles;
 
@@ -58,7 +59,7 @@ public class Generation : MonoBehaviour
         // DEBUG ONLY DONT USE IT
         public void drawRoom()
         {
-            for (int y = width-1; y >= 0; y--)
+            for (int y = 0; y < width; y++)
                 for (int x = 0; x < width; x++)
                     GameObject.Instantiate(tiles[data[y, x]], new Vector3(y-width/2, x-width/2, 0), Quaternion.identity);
         }
@@ -235,11 +236,19 @@ public class Generation : MonoBehaviour
             this.width = width;
             this.max_rooms = max_rooms;
             this.rooms = new Room[width, width];
-            this.path = new List<(int x, int y)>();
             this.tiles = tiles;
 
             init();
             makePath();
+        }
+
+        public void drawWholeMap() {
+            int max_width = width * rooms[0, 0].width;
+            for (int y = 0; y < max_width; y++) {
+                for (int x = 0; x < max_width; x++) {
+                    GameObject.Instantiate(tiles[rooms[(int)(y/30), (int)(x/30)].data[(int)(y%30), (int)(x%30)]], new Vector3(y-max_width/2, x-max_width/2, 0), Quaternion.identity);
+                }
+            }
         }
 
         private void init() {
@@ -261,12 +270,116 @@ public class Generation : MonoBehaviour
             }
         }
 
+        // helper func
+        int randomChoice(int[] list) {
+            return list[Random.Range(0, list.Length)];
+        }
+
         private void makePath() {
             int spawnPoint = (int)(width/2);
             int dir = Random.Range(1, 5);
             int level = 0;
             int nIndex = 0;
             int currentX = spawnPoint;
+            int prevDir = -1;
+            bool[] doors = new[]{true, true, true, true};
+            path = new List<(int x, int y)>();
+
+            while (level < width-1 && max_rooms > nIndex) {
+
+                //redirecting before using wrong values
+                if (new List<int>(){1, 2}.Contains(prevDir) && new List<int>(){3, 4}.Contains(dir)) {
+                    dir = randomChoice(new[]{1, 2, 5});
+                }
+                if (new List<int>(){3, 4}.Contains(prevDir) && new List<int>(){1, 2}.Contains(dir)) {
+                    dir = randomChoice(new[]{3, 4, 5});
+                }
+
+                // generating spawn room
+                if (new List<int>(){1, 2}.Contains(dir)) {
+                    doors = new[]{false, false, false, true};
+                } else if (new List<int>(){3, 4}.Contains(dir)) {
+                    doors = new[]{false, true, false, false};
+                } else if (dir == 5) {
+                    doors = new[]{false, false, true, false};
+                }
+
+                // decide where the doors should be
+                if (new List<int>(){1, 2}.Contains(prevDir)) {
+                    if (new List<int>(){1, 2}.Contains(dir)) {
+                        doors = new[]{false, true, false, true};
+                    } else if (dir == 5) {
+                        doors = new[]{false, true, true, false};
+                    }
+                } else if (new List<int>(){3, 4}.Contains(prevDir)) {
+                    if (new List<int>(){3, 4}.Contains(dir)) {
+                        doors = new[]{false, true, false, true};
+                    } else if (dir == 5) {
+                        doors = new[]{false, false, true, true};
+                    }
+                } else if (prevDir == 5) {
+                    if (new List<int>(){1, 2}.Contains(dir)) {
+                        doors = new[]{true, false, false, true};
+                    } else if (new List<int>(){3, 4}.Contains(dir)) {
+                        doors = new[]{true, true, false, false};
+                    } else {
+                        doors = new[]{true, false, true, false};
+                    }
+                }
+
+                // going left
+                if (new List<int>(){1, 2}.Contains(dir)) {
+                    if (currentX <= 0) {
+                        dir = 5;
+                        if (prevDir == 5) {
+                            doors = new[]{true, false, true, false};
+                        } else {
+                            doors = new[]{false, true, true, false};
+                        }
+                    } else {
+                        rooms[level, currentX] = new Room(currentX, level, tiles, doors);
+                        currentX--;
+                    }
+                }
+
+                // going right
+                if (new List<int>(){3, 4}.Contains(dir)) {
+                    if (currentX >= width-1) {
+                        dir = 5;
+                        if (prevDir == 5) {
+                            doors = new[]{true, false, true, false};
+                        } else {
+                            doors = new[]{false, false, true, true};
+                        }
+                    } else {
+                        rooms[level, currentX] = new Room(currentX, level, tiles, doors);
+                        currentX++;
+                    }
+                }
+
+                // going down
+                if (dir == 5) {
+                    rooms[level, currentX] = new Room(currentX, level, tiles, doors);
+                    level++;
+                }
+
+                // end of while
+                prevDir = dir;
+                dir = Random.Range(1, 5);
+                nIndex++;
+                path.Add((currentX, level));
+            }
+
+            // generating end room
+            if (new List<int>(){1, 2}.Contains(prevDir)) {
+                doors = new[]{false, true, false, false};
+            } else if (new List<int>(){3, 4}.Contains(prevDir)) {
+                doors = new[]{false, false, false, true};
+            } else if (prevDir == 5) {
+                doors = new[]{true, false, false, false};
+            }
+            rooms[level, currentX] = new Room(currentX, level, tiles, doors);
+            path.Add((currentX, level));
         }
     }
 }
