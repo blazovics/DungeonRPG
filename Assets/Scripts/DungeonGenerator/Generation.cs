@@ -19,7 +19,8 @@ public class Generation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Room room = new Room(0, 0, tiles);
+        Map map = new Map(4, 10, tiles);
+        map.rooms[0, 3].drawRoom();
     }
 
     class Room {
@@ -28,7 +29,7 @@ public class Generation : MonoBehaviour
         int width;
         int wall_width;
         int[,] data;
-        bool[] doors;
+        public bool[] doors;
         GameObject[] tiles;
 
         public Room(int x, int y, GameObject[] tiles, bool[] doors = null, int width = 30, int wall_width = 2) {
@@ -55,7 +56,7 @@ public class Generation : MonoBehaviour
         }
 
         // DEBUG ONLY DONT USE IT
-        void drawRoom()
+        public void drawRoom()
         {
             for (int y = width-1; y >= 0; y--)
                 for (int x = 0; x < width; x++)
@@ -226,7 +227,7 @@ public class Generation : MonoBehaviour
     class Map {
         int width;
         int max_rooms;
-        Room[,] rooms;
+        public Room[,] rooms;
         List<(int x, int y)> path;
         GameObject[] tiles;
         
@@ -238,15 +239,34 @@ public class Generation : MonoBehaviour
             this.tiles = tiles;
 
             init();
+            makePath();
         }
 
         private void init() {
             for (int y = 0; y < width; y++) {
                 for (int x = 0; x < width; x++) {
                     var doors = new bool[4]{Random.Range(0, 2) == 1, Random.Range(0, 2) == 1, Random.Range(0, 2) == 1, Random.Range(0, 2) == 1};
+                    if (y == 0) {
+                        doors[0] = false;
+                    } else if (y == width-1) {
+                        doors[2] = false;
+                    }
+                    if (x == 0) {
+                        doors[3] = false;
+                    } else if (x == width-1) {
+                        doors[1] = false;
+                    }
                     rooms[y, x] = new Room(x, y, tiles, doors);
                 }
             }
+        }
+
+        private void makePath() {
+            int spawnPoint = (int)(width/2);
+            int dir = Random.Range(1, 5);
+            int level = 0;
+            int nIndex = 0;
+            int currentX = spawnPoint;
         }
     }
 }

@@ -246,11 +246,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  height: 30
   width: 30
   wall_width: 2
-  smooth8: 3
-  smooth4: 5
 --- !u!4 &868613116
 Transform:
   m_ObjectHideFlags: 0
