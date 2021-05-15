@@ -11,6 +11,7 @@ public class Generation : MonoBehaviour
     public Tilemap tilemap;
     public WeightedRandomTile wallTile;
     public RandomTile groundTile;
+    public Tile startTile;
     public Map map;
 
     public int width = 30;
@@ -21,8 +22,9 @@ public class Generation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        map = new Map(5, 10, tiles, tilemap, groundTile, wallTile);
+        map = new Map(5, 10, tiles, tilemap, groundTile, wallTile, startTile);
         map.drawWholeMap();
+        //print(map.GetStartingRoom().x + " " + map.GetStartingRoom().y);
         //map.rooms[0, 0].drawRoom();
     }
 
@@ -154,7 +156,6 @@ public class Generation : MonoBehaviour
                     }
                 }
             }
-
             return value;
         }
 
@@ -231,19 +232,39 @@ public class Generation : MonoBehaviour
         int width;
         int max_rooms;
         public Room[,] rooms;
-        List<(int x, int y)> path;
+        public List<(int x, int y)> path;
         GameObject[] tiles;
         Tilemap wholeMap;
         WeightedRandomTile wallTile;
         RandomTile groundTile;
+        Tile startTile;
 
         public Tilemap getWholeMap()
         {
             return wholeMap;
         }
 
+        public Room GetStartingRoom()
+        {
+            foreach (var item in rooms)
+            {
+                //print("asdad" + path[0].x + item.x + "||" + path[0].y + item.y);
+                if (path[0].x == item.x && path[0].y == item.y)
+                {
+                    //print(item.x + "halge" + item.y);
+                    return item;
+                }
+            }
+            return null;         
+        }
 
-        public Map(int width, int max_rooms, GameObject[] tiles,Tilemap wholeMap, RandomTile groundTile, WeightedRandomTile wallTile) {
+        public (int, int) GetFinalRoom()
+        {
+            return path[path.Count-1];
+        }
+
+
+        public Map(int width, int max_rooms, GameObject[] tiles,Tilemap wholeMap, RandomTile groundTile, WeightedRandomTile wallTile, Tile startTile) {
             this.width = width;
             this.max_rooms = max_rooms;
             this.rooms = new Room[width, width];
@@ -251,21 +272,22 @@ public class Generation : MonoBehaviour
             this.wholeMap = wholeMap;
             this.groundTile = groundTile;
             this.wallTile = wallTile;
+            this.startTile = startTile;
 
             init();
             makePath();
         }
 
         public void drawWholeMap() {
-            int max_width = width * rooms[0, 0].width;            
+            int max_width = width * rooms[0, 0].width;
             for (int y = 0; y < max_width; y++) {
                 for (int x = 0; x < max_width; x++) {
                     //print(rooms[(int)(y / 30), (int)(x / 30)].data[(int)(y % 30), (int)(x % 30)]);
-                    //GameObject.Instantiate(tiles[rooms[(int)(y/30), (int)(x/30)].data[(int)(y%30), (int)(x%30)]], new Vector3(y-max_width/2, x-max_width/2, 0), Quaternion.identity);
+                    //GameObject.Instantiate(tiles[rooms[(int)(y/30), (int)(x/30)].data[(int)(y%30), (int)(x%30)]], new Vector3(y-max_width/2, x-max_width/2, 0), Quaternion.identity);                    
                     
                     if (rooms[(int)(y / 30), (int)(x / 30)].data[(int)(y % 30), (int)(x % 30)] == 0)
                     {
-                        wholeMap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), groundTile);
+                        wholeMap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), groundTile);                        
                     }
                     else
                     {
@@ -273,6 +295,22 @@ public class Generation : MonoBehaviour
                     }
                 }
             }
+            /*
+            foreach (var item in rooms)
+            {
+                print(item.x + " " + item.y);
+            }            
+            foreach (var item in rooms)
+            {
+                //print("asdad" + path[0].x + item.x + "||" + path[0].y + item.y);
+                if (path[0].x == item.x && path[0].y == item.y)
+                {
+                    print(item.x + "szoba" + item.y);
+                    print(path[0].x + "path" + path[0].y);
+                }
+            }
+            */
+
         }
 
         private void init() {
@@ -404,6 +442,11 @@ public class Generation : MonoBehaviour
             }
             rooms[level, currentX] = new Room(currentX, level, tiles, doors);
             path.Add((currentX, level));
+
+            for (int i = 0; i < path.Count; i++)
+            {
+                print(path[i]);
+            }
         }
     }
 }
