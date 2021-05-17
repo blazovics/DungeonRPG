@@ -33,12 +33,24 @@ public class KnightController : MonoBehaviour
     private bool k_isInvincible = false;
     private float k_timeInvincible = 2.0f;
     private float k_InvincibleTimer;
+    //Inventory Parameters
+    public int Urns { get; set; } = 0;
+    public int Spiritboxes { get; set; } = 0;
+
+    private bool isSpiritboxBuffed = false;
+    private float spiritboxTimeBuffed = 10.0f;
+    private float spiritboxTimer;
+    private float percentage;
+    private float k_preSpiritBoxSpeed;
+    private int k_preSpiritBoxMeleeDamage;
+    private int k_preSpiritBoxProjectileDamage;
 
     // Start is called before the first frame update
     void Start()
     {
         k_animator = GetComponent<Animator>();
         k_body2d = GetComponent<Rigidbody2D>();
+        knight_currentHealth = knight_maxHealth / 2;
     }
 
     // Update is called once per frame
@@ -61,6 +73,16 @@ public class KnightController : MonoBehaviour
             if (k_InvincibleTimer < 0)
             {
                 k_isInvincible = false;
+            }
+        }
+
+        // Timing of the Spiritbox Buff
+        if (isSpiritboxBuffed)
+        {
+            spiritboxTimer -= Time.deltaTime;
+            if (spiritboxTimer < 0)
+            {
+                SpiritboxRemoveBuff();
             }
         }
 
@@ -89,6 +111,18 @@ public class KnightController : MonoBehaviour
             Roll();
         }
 
+        //Use Urn Collectible
+        else if (Input.GetKeyDown("q") && !k_rolling)
+        {
+            UseUrn();
+        }
+
+        //Use Spiritbox Collectible
+        else if (Input.GetKeyDown("e") && !k_rolling && !isSpiritboxBuffed)
+        {
+            UseSpiritbox();
+        }
+
         //Run
         else if (Mathf.Abs(horizontal) > Mathf.Epsilon)
         {
@@ -114,7 +148,7 @@ public class KnightController : MonoBehaviour
     // Changing health value
     public void ChangeHealth(int value)
     {
-        if (value > 0)
+        if (value < 0)
         {
             if (k_isInvincible)
             {
@@ -212,5 +246,44 @@ public class KnightController : MonoBehaviour
         k_delayToIdle -= Time.deltaTime;
         if (k_delayToIdle < 0)
             k_animator.SetInteger("AnimState", 0);
+    }
+
+    public void UseUrn()
+    {
+        if (Urns != 0)
+        {
+            Urns--;
+            ChangeHealth(20);
+        }
+    }
+
+    public void UseSpiritbox()
+    {
+        if (Spiritboxes != 0)
+        {
+            //Set Timer
+            isSpiritboxBuffed = true;
+            spiritboxTimer = spiritboxTimeBuffed;
+            Spiritboxes--;
+
+            percentage = 1.0f + Random.value;
+
+            //Saves the knights speed, melee damage, and projectile damage before adjusting it
+            k_preSpiritBoxSpeed = k_speed;
+            k_preSpiritBoxMeleeDamage = k_meleeDamage;
+            k_preSpiritBoxProjectileDamage = k_projectileDamage;
+
+            //Applies the Spiritbox buff
+            k_speed *= percentage;
+            k_meleeDamage = (int)(k_meleeDamage * percentage);
+            k_projectileDamage = (int)(k_projectileDamage * percentage);
+        }
+    }
+    public void SpiritboxRemoveBuff()
+    {
+        isSpiritboxBuffed = false;
+        k_speed = k_preSpiritBoxSpeed;
+        k_meleeDamage = k_preSpiritBoxMeleeDamage;
+        k_projectileDamage = k_preSpiritBoxProjectileDamage;
     }
 }
