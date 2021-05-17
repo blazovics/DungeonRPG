@@ -22,7 +22,7 @@ public class SpawnPlayer : MonoBehaviour
             {
                 if (firstRoom.data[y,x] == 0 && getPointValue8(y,x))
                 {
-                    player.transform.position = new Vector3(-59 + 30 *firstRoom.y, -74 + 30* firstRoom.x, 0);                    
+                    player.transform.position = new Vector3(-59 + 30 *firstRoom.y, -72 + 30* firstRoom.x, 0);                    
                 }
             }
         }

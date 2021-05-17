@@ -213,4 +213,13 @@ public class KnightController : MonoBehaviour
         if (k_delayToIdle < 0)
             k_animator.SetInteger("AnimState", 0);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {       
+        print("Exit");
+        if (other.tag == "ExitTile")
+        {
+            Destroy(GameObject.FindGameObjectWithTag("TileMap"));
+        }
+    }
 }

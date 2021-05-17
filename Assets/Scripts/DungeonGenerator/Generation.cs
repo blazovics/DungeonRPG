@@ -22,7 +22,7 @@ public class Generation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        map = new Map(5, 10, tiles, tilemap, groundTile, wallTile, startTile);
+        map = new Map(5, 2, tiles, tilemap, groundTile, wallTile, startTile);
         map.drawWholeMap();
         //print(map.GetStartingRoom().x + " " + map.GetStartingRoom().y);
         //map.rooms[0, 0].drawRoom();
@@ -248,19 +248,25 @@ public class Generation : MonoBehaviour
         {
             foreach (var item in rooms)
             {
-                //print("asdad" + path[0].x + item.x + "||" + path[0].y + item.y);
                 if (path[0].x == item.x && path[0].y == item.y)
                 {
-                    //print(item.x + "halge" + item.y);
                     return item;
                 }
             }
             return null;         
         }
 
-        public (int, int) GetFinalRoom()
+        public Room GetFinalRoom()
         {
-            return path[path.Count-1];
+            foreach (var item in rooms)
+            {
+                if (path[path.Count-1].x == item.x && path[path.Count - 1].y == item.y)
+                {
+                    print(item.x + "halge" + item.y);
+                    return item;
+                }
+            }
+            return null;
         }
 
 
@@ -280,12 +286,18 @@ public class Generation : MonoBehaviour
 
         public void drawWholeMap() {
             int max_width = width * rooms[0, 0].width;
+            Room finalRoom = GetFinalRoom();
+            bool spawnedExit = true;
             for (int y = 0; y < max_width; y++) {
                 for (int x = 0; x < max_width; x++) {
                     //print(rooms[(int)(y / 30), (int)(x / 30)].data[(int)(y % 30), (int)(x % 30)]);
                     //GameObject.Instantiate(tiles[rooms[(int)(y/30), (int)(x/30)].data[(int)(y%30), (int)(x%30)]], new Vector3(y-max_width/2, x-max_width/2, 0), Quaternion.identity);                    
-                    
-                    if (rooms[(int)(y / 30), (int)(x / 30)].data[(int)(y % 30), (int)(x % 30)] == 0)
+                    if (rooms[(int)(y / 30), (int)(x / 30)].data[(int)(y % 30), (int)(x % 30)] == 0 && finalRoom.x == rooms[(int)(y / 30), (int)(x / 30)].x && finalRoom.y == rooms[(int)(y / 30), (int)(x / 30)].y && spawnedExit)
+                    {
+                        wholeMap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), startTile);
+                        spawnedExit = false;
+                    }
+                    else if (rooms[(int)(y / 30), (int)(x / 30)].data[(int)(y % 30), (int)(x % 30)] == 0)
                     {
                         wholeMap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), groundTile);                        
                     }
@@ -295,6 +307,8 @@ public class Generation : MonoBehaviour
                     }
                 }
             }
+
+
             /*
             foreach (var item in rooms)
             {
