@@ -8,13 +8,13 @@ public class SpawnPlayer : MonoBehaviour
     public GameObject player;
     Generation.Room firstRoom;
 
-    void Start()
+    public void Start()
     {
         firstRoom = mapgen.map.GetStartingRoom(); ;
         Spawn();
     }
 
-    void Spawn()
+    public void Spawn()
     {
         for (int y = 0; y < firstRoom.width; y++)
         {
@@ -22,7 +22,7 @@ public class SpawnPlayer : MonoBehaviour
             {
                 if (firstRoom.data[y,x] == 0 && getPointValue8(y,x))
                 {
-                    player.transform.position = new Vector3(-59 + 30 *firstRoom.y, -72 + 30* firstRoom.x, 0);                    
+                    player.transform.position = new Vector3(-59 + 30 *firstRoom.y, -71 + 30* firstRoom.x, 0);                    
                 }
             }
         }

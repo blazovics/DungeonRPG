@@ -34,6 +34,13 @@ public class KnightController : MonoBehaviour
     private float k_timeInvincible = 2.0f;
     private float k_InvincibleTimer;
 
+    public Generation mapgen;
+    public SpawnPlayer playerSpawn;
+    public LootSpawner lootSpawner;
+    public EnemySpawner enemySpawner;
+
+    //Generation
+
     // Start is called before the first frame update
     void Start()
     {
@@ -219,7 +226,14 @@ public class KnightController : MonoBehaviour
         print("Exit");
         if (other.tag == "ExitTile")
         {
-            Destroy(GameObject.FindGameObjectWithTag("TileMap"));
+            Destroy(GameObject.FindGameObjectWithTag("ExitTile"));
+            print(lootSpawner.lootList);
+            lootSpawner.resetLoot();
+            enemySpawner.ResetEnemy();
+            mapgen.Start();
+            enemySpawner.Start();
+            lootSpawner.Start();
+            playerSpawn.Start();
         }
     }
 }

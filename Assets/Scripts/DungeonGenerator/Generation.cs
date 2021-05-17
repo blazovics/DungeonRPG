@@ -11,18 +11,18 @@ public class Generation : MonoBehaviour
     public Tilemap tilemap;
     public WeightedRandomTile wallTile;
     public RandomTile groundTile;
-    public Tile startTile;
+    public GameObject exit;
     public Map map;
 
     public int width = 30;
     public int wall_width = 2;
-    public static int smooth8 = 3;
+    public static int smooth8 = 5;
     public static int smooth4 = 3;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        map = new Map(5, 2, tiles, tilemap, groundTile, wallTile, startTile);
+        map = new Map(5, 4, tiles, tilemap, groundTile, wallTile, exit);
         map.drawWholeMap();
         //print(map.GetStartingRoom().x + " " + map.GetStartingRoom().y);
         //map.rooms[0, 0].drawRoom();
@@ -237,12 +237,12 @@ public class Generation : MonoBehaviour
         Tilemap wholeMap;
         WeightedRandomTile wallTile;
         RandomTile groundTile;
-        Tile startTile;
+        GameObject exit;
 
         public Tilemap getWholeMap()
         {
             return wholeMap;
-        }
+        }        
 
         public Room GetStartingRoom()
         {
@@ -270,7 +270,7 @@ public class Generation : MonoBehaviour
         }
 
 
-        public Map(int width, int max_rooms, GameObject[] tiles,Tilemap wholeMap, RandomTile groundTile, WeightedRandomTile wallTile, Tile startTile) {
+        public Map(int width, int max_rooms, GameObject[] tiles,Tilemap wholeMap, RandomTile groundTile, WeightedRandomTile wallTile, GameObject exit) {
             this.width = width;
             this.max_rooms = max_rooms;
             this.rooms = new Room[width, width];
@@ -278,7 +278,7 @@ public class Generation : MonoBehaviour
             this.wholeMap = wholeMap;
             this.groundTile = groundTile;
             this.wallTile = wallTile;
-            this.startTile = startTile;
+            this.exit = exit;
 
             init();
             makePath();
@@ -294,7 +294,8 @@ public class Generation : MonoBehaviour
                     //GameObject.Instantiate(tiles[rooms[(int)(y/30), (int)(x/30)].data[(int)(y%30), (int)(x%30)]], new Vector3(y-max_width/2, x-max_width/2, 0), Quaternion.identity);                    
                     if (rooms[(int)(y / 30), (int)(x / 30)].data[(int)(y % 30), (int)(x % 30)] == 0 && finalRoom.x == rooms[(int)(y / 30), (int)(x / 30)].x && finalRoom.y == rooms[(int)(y / 30), (int)(x / 30)].y && spawnedExit)
                     {
-                        wholeMap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), startTile);
+                        wholeMap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), groundTile);
+                        GameObject.Instantiate(exit , new Vector3((y - max_width / 2)+0.5f, (x - max_width / 2) + 0.5f, 0), Quaternion.identity);
                         spawnedExit = false;
                     }
                     else if (rooms[(int)(y / 30), (int)(x / 30)].data[(int)(y % 30), (int)(x % 30)] == 0)

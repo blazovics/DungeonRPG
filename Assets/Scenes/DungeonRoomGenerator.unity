@@ -264,7 +264,7 @@ MonoBehaviour:
   tilemap: {fileID: 1187261920}
   wallTile: {fileID: 11400000, guid: d41610fb34a2930468be32418f8dc5cc, type: 2}
   groundTile: {fileID: 11400000, guid: 2a6d78672cdb3c642879aebc078088f8, type: 2}
-  startTile: {fileID: 11400000, guid: 40400618f4253ed4a92b56d40989c5d4, type: 2}
+  exit: {fileID: 1515002836958608161, guid: b1e6c1970fcd1a9479bf18e063259389, type: 3}
   width: 30
   wall_width: 2
 --- !u!4 &868613116
@@ -324,6 +324,51 @@ Transform:
   - {fileID: 1187261918}
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1016285855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1016285857}
+  - component: {fileID: 1016285856}
+  m_Layer: 0
+  m_Name: PlayerSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1016285856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016285855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be4f852a78ac4b4a8ccd36314ca66bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapgen: {fileID: 868613115}
+  player: {fileID: 7344749422334882969}
+--- !u!4 &1016285857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016285855}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -34.004578, y: -50.311394, z: -102.98321}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1187261917
 GameObject:
@@ -536,16 +581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 2
   lootItems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6084413558677265061, guid: 1348e1f83f8397e408e5f5792e2ed9ff, type: 3}
   player: {fileID: 7344749422334882969}
   mapgen: {fileID: 868613115}
 --- !u!4 &2014922085
@@ -677,9 +713,25 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7055816279085096205, guid: be93b5e4a6b609644b79ae317548760a, type: 3}
+      propertyPath: mapgen
+      value: 
+      objectReference: {fileID: 868613115}
+    - target: {fileID: 7055816279085096205, guid: be93b5e4a6b609644b79ae317548760a, type: 3}
       propertyPath: k_speed
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 7055816279085096205, guid: be93b5e4a6b609644b79ae317548760a, type: 3}
+      propertyPath: lootSpawner
+      value: 
+      objectReference: {fileID: 2014922084}
+    - target: {fileID: 7055816279085096205, guid: be93b5e4a6b609644b79ae317548760a, type: 3}
+      propertyPath: playerSpawn
+      value: 
+      objectReference: {fileID: 1016285856}
+    - target: {fileID: 7055816279085096205, guid: be93b5e4a6b609644b79ae317548760a, type: 3}
+      propertyPath: enemySpawner
+      value: 
+      objectReference: {fileID: 2060890947}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be93b5e4a6b609644b79ae317548760a, type: 3}
 --- !u!1 &7344749422334882969 stripped

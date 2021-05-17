@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using System.Linq;
 
 public class EnemySpawner : MonoBehaviour
@@ -12,25 +11,32 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemy;
     public GameObject player;
     public Generation mapgen;
+    public List<GameObject> enemies;
+    private GameObject[] enemyObjects;
+
     int randX;
     int randY;
 
-    void Start()
+    public void Start()
     {
         level = 2;
         Spawning();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ResetEnemy()
     {
-        
+        enemies.Clear();
+        enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject item in enemyObjects)
+        {
+            Destroy(item);
+        }
     }
     void Spawning()
     {
         for(int i = 0; i < level*40; i++)
         {
-            List<GameObject> enemies = new List<GameObject>();
+            enemies = new List<GameObject>();
             while (true)
             {
                 randX = UnityEngine.Random.Range(-74, 75);
