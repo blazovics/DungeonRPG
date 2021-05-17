@@ -33,12 +33,43 @@ public class KnightController : MonoBehaviour
     private bool k_isInvincible = false;
     private float k_timeInvincible = 2.0f;
     private float k_InvincibleTimer;
+    //Inventory Parameters
+    public int Urns { get; set; } = 0;
+    public int Spiritboxes { get; set; } = 0;
+
+    public float spiritboxTimeBuffed = 10.0f;
+    private bool isSpiritboxBuffed = false;
+    private float spiritboxTimer;
+    private float percentage;
+    private float k_preSpiritBoxSpeed;
+    private int k_preSpiritBoxMeleeDamage;
+    private int k_preSpiritBoxProjectileDamage;
+    //Inventory Display Parameters
+    //Urn Dialog
+    public float displayTime = 1.0f;
+    public GameObject urnDialogBox;
+    float timerUrnDisplay;
+    //Spiritbox Dialog
+    public GameObject spiritboxDialogBox;
+    public GameObject spiritboxUI;
+    float timerSpiritboxDisplay;
+    float timerSpiritboxUIDisplay;
 
     // Start is called before the first frame update
     void Start()
     {
         k_animator = GetComponent<Animator>();
         k_body2d = GetComponent<Rigidbody2D>();
+
+        knight_currentHealth = knight_maxHealth / 2;
+
+        //Consumable Display
+        urnDialogBox.SetActive(false);
+        timerUrnDisplay = -1.0f;
+        spiritboxDialogBox.SetActive(false);
+        timerSpiritboxDisplay = -1.0f;
+        spiritboxUI.SetActive(false);
+        timerSpiritboxUIDisplay = -1.0f;
     }
 
     // Update is called once per frame
@@ -53,6 +84,46 @@ public class KnightController : MonoBehaviour
 
         // Swap direction of sprite depending on walk direction
         SwapDirection();
+
+        // Timing of the Urn Consumable Display
+        if (timerUrnDisplay >= 0)
+        {
+            timerUrnDisplay -= Time.deltaTime;
+            if (timerUrnDisplay < 0)
+            {
+                urnDialogBox.SetActive(false);
+            }
+        }
+
+        // Timing of the Spiritbox Consumable Display
+        if (timerSpiritboxDisplay >= 0)
+        {
+            timerSpiritboxDisplay -= Time.deltaTime;
+            if (timerSpiritboxDisplay < 0)
+            {
+                spiritboxDialogBox.SetActive(false);
+            }
+        }
+
+        // Timing of the Spiritbox Consumable UI Display
+        if (timerSpiritboxUIDisplay >= 0)
+        {
+            timerSpiritboxUIDisplay -= Time.deltaTime;
+            if (timerSpiritboxUIDisplay < 0)
+            {
+                spiritboxUI.SetActive(false);
+            }
+        }
+
+        // Timing of the Spiritbox Buff
+        if (isSpiritboxBuffed)
+        {
+            spiritboxTimer -= Time.deltaTime;
+            if (spiritboxTimer < 0)
+            {
+                SpiritboxRemoveBuff();
+            }
+        }
 
         // Timing of the Invinciblity
         if (k_isInvincible)
@@ -89,6 +160,18 @@ public class KnightController : MonoBehaviour
             Roll();
         }
 
+        //Use Urn Collectible
+        else if (Input.GetKeyDown("q") && !k_rolling)
+        {
+            UseUrn();
+        }
+
+        //Use Spiritbox Collectible
+        else if (Input.GetKeyDown("e") && !k_rolling && !isSpiritboxBuffed)
+        {
+            UseSpiritbox();
+        }
+
         //Run
         else if (Mathf.Abs(horizontal) > Mathf.Epsilon)
         {
@@ -114,7 +197,7 @@ public class KnightController : MonoBehaviour
     // Changing health value
     public void ChangeHealth(int value)
     {
-        if (value > 0)
+        if (value < 0)
         {
             if (k_isInvincible)
             {
@@ -214,12 +297,62 @@ public class KnightController : MonoBehaviour
             k_animator.SetInteger("AnimState", 0);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {       
-        print("Exit");
-        if (other.tag == "ExitTile")
+    public void UseUrn()
+    {
+        if (Urns != 0)
         {
-            Destroy(GameObject.FindGameObjectWithTag("TileMap"));
+            Urns--;
+            ChangeHealth(20);
+            DisplayUrnDialog();
         }
+    }
+
+    public void UseSpiritbox()
+    {
+        if (Spiritboxes != 0)
+        {
+            //Set Timer
+            isSpiritboxBuffed = true;
+            spiritboxTimer = spiritboxTimeBuffed;
+            Spiritboxes--;
+
+            //Sets the buff to be between 1-100% randomly
+            percentage = 1.0f + Random.value;
+
+            //Saves the knights speed, melee damage, and projectile damage before adjusting it
+            k_preSpiritBoxSpeed = k_speed;
+            k_preSpiritBoxMeleeDamage = k_meleeDamage;
+            k_preSpiritBoxProjectileDamage = k_projectileDamage;
+
+            //Applies the Spiritbox buff
+            k_speed *= percentage;
+            k_meleeDamage = (int)(k_meleeDamage * percentage);
+            k_projectileDamage = (int)(k_projectileDamage * percentage);
+
+            DisplaySpiritboxDialog();
+        }
+    }
+    public void SpiritboxRemoveBuff()
+    {
+        isSpiritboxBuffed = false;
+        k_speed = k_preSpiritBoxSpeed;
+        k_meleeDamage = k_preSpiritBoxMeleeDamage;
+        k_projectileDamage = k_preSpiritBoxProjectileDamage;
+    }
+
+    public void DisplayUrnDialog()
+    {
+        timerUrnDisplay = displayTime;
+        urnDialogBox.SetActive(true);
+    }
+
+    public void DisplaySpiritboxDialog()
+    {
+        Countdown.instance.StartCountdown(spiritboxTimeBuffed);
+        timerSpiritboxUIDisplay = spiritboxTimeBuffed;
+        timerSpiritboxDisplay = displayTime;
+        spiritboxDialogBox.SetActive(true);
+        spiritboxUI.SetActive(true);
+        BonusDamageUI.instance.StartBonusDamageUI(percentage);
     }
 }
