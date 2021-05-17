@@ -353,5 +353,6 @@ public class KnightController : MonoBehaviour
         timerSpiritboxDisplay = displayTime;
         spiritboxDialogBox.SetActive(true);
         spiritboxUI.SetActive(true);
+        BonusDamageUI.instance.StartBonusDamageUI(percentage);
     }
 }
