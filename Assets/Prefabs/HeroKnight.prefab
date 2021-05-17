@@ -541,6 +541,7 @@ MonoBehaviour:
   k_projectileDamage: 10
   projectilePrefab: {fileID: 4244953661801040653, guid: 78f0edb7e531cc94d8b9abf1cc037b16, type: 3}
   spiritboxTimeBuffed: 10
-  urnDisplayTime: 1
+  displayTime: 1
   urnDialogBox: {fileID: 3177801506503178829}
   spiritboxDialogBox: {fileID: 4072745713015010164}
+  spiritboxUI: {fileID: 0}
