@@ -61,7 +61,7 @@ public class KnightController : MonoBehaviour
         k_animator = GetComponent<Animator>();
         k_body2d = GetComponent<Rigidbody2D>();
 
-        knight_currentHealth = knight_maxHealth / 2;
+        knight_currentHealth = knight_maxHealth;
 
         //Consumable Display
         urnDialogBox.SetActive(false);
@@ -160,6 +160,12 @@ public class KnightController : MonoBehaviour
             Roll();
         }
 
+        //Damaging the knight, for test purposes
+        else if (Input.GetKeyDown("f") && !k_rolling)
+        {
+            DamageKnightTest();
+        }
+
         //Use Urn Collectible
         else if (Input.GetKeyDown("q") && !k_rolling)
         {
@@ -208,7 +214,8 @@ public class KnightController : MonoBehaviour
         }
 
         knight_currentHealth = Mathf.Clamp(knight_currentHealth + value, 0, knight_maxHealth);
-        Debug.Log(knight_currentHealth + "/" + knight_maxHealth);
+        //Debug.Log(knight_currentHealth + "/" + knight_maxHealth);
+        HealthbarUI.instance.SetValue(knight_currentHealth / (float)knight_maxHealth);
     }
 
     // Animation Events
@@ -354,5 +361,10 @@ public class KnightController : MonoBehaviour
         spiritboxDialogBox.SetActive(true);
         spiritboxUI.SetActive(true);
         BonusDamageUI.instance.StartBonusDamageUI(percentage);
+    }
+
+    public void DamageKnightTest()
+    {
+        ChangeHealth(-10);
     }
 }
