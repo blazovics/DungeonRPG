@@ -46,12 +46,14 @@ public class KnightController : MonoBehaviour
     private int k_preSpiritBoxProjectileDamage;
     //Inventory Display Parameters
     //Urn Dialog
-    public float urnDisplayTime = 1.0f;
+    public float displayTime = 1.0f;
     public GameObject urnDialogBox;
     float timerUrnDisplay;
     //Spiritbox Dialog
     public GameObject spiritboxDialogBox;
+    public GameObject spiritboxUI;
     float timerSpiritboxDisplay;
+    float timerSpiritboxUIDisplay;
 
     // Start is called before the first frame update
     void Start()
@@ -66,6 +68,8 @@ public class KnightController : MonoBehaviour
         timerUrnDisplay = -1.0f;
         spiritboxDialogBox.SetActive(false);
         timerSpiritboxDisplay = -1.0f;
+        spiritboxUI.SetActive(false);
+        timerSpiritboxUIDisplay = -1.0f;
     }
 
     // Update is called once per frame
@@ -101,13 +105,13 @@ public class KnightController : MonoBehaviour
             }
         }
 
-        // Timing of the Invinciblity
-        if (k_isInvincible)
+        // Timing of the Spiritbox Consumable UI Display
+        if (timerSpiritboxUIDisplay >= 0)
         {
-            k_InvincibleTimer -= Time.deltaTime;
-            if (k_InvincibleTimer < 0)
+            timerSpiritboxUIDisplay -= Time.deltaTime;
+            if (timerSpiritboxUIDisplay < 0)
             {
-                k_isInvincible = false;
+                spiritboxUI.SetActive(false);
             }
         }
 
@@ -118,6 +122,16 @@ public class KnightController : MonoBehaviour
             if (spiritboxTimer < 0)
             {
                 SpiritboxRemoveBuff();
+            }
+        }
+
+        // Timing of the Invinciblity
+        if (k_isInvincible)
+        {
+            k_InvincibleTimer -= Time.deltaTime;
+            if (k_InvincibleTimer < 0)
+            {
+                k_isInvincible = false;
             }
         }
 
@@ -302,6 +316,7 @@ public class KnightController : MonoBehaviour
             spiritboxTimer = spiritboxTimeBuffed;
             Spiritboxes--;
 
+            //Sets the buff to be between 1-100% randomly
             percentage = 1.0f + Random.value;
 
             //Saves the knights speed, melee damage, and projectile damage before adjusting it
@@ -327,13 +342,16 @@ public class KnightController : MonoBehaviour
 
     public void DisplayUrnDialog()
     {
-        timerUrnDisplay = urnDisplayTime;
+        timerUrnDisplay = displayTime;
         urnDialogBox.SetActive(true);
     }
 
     public void DisplaySpiritboxDialog()
     {
-        timerSpiritboxDisplay = spiritboxTimeBuffed;
+        Countdown.instance.StartCountdown(spiritboxTimeBuffed);
+        timerSpiritboxUIDisplay = spiritboxTimeBuffed;
+        timerSpiritboxDisplay = displayTime;
         spiritboxDialogBox.SetActive(true);
+        spiritboxUI.SetActive(true);
     }
 }
