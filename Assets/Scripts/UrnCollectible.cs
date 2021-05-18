@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UrnCollectible : MonoBehaviour
 {
+    public AudioClip collectedClip;
     //On collision, the Knight picks up the Urn
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -12,7 +13,7 @@ public class UrnCollectible : MonoBehaviour
         if (controller != null)
         {
             controller.Urns++;
-            Debug.Log("Current Urns: " + controller.Urns);
+            controller.PlaySound(collectedClip);
             Destroy(gameObject);
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpiritboxCollectible : MonoBehaviour
 {
+    public AudioClip collectedClip;
     //On collision, the Knight picks up the Spiritbox
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -12,7 +13,7 @@ public class SpiritboxCollectible : MonoBehaviour
         if (controller != null)
         {
             controller.Spiritboxes++;
-            Debug.Log("Current Spiritboxes: " + controller.Spiritboxes);
+            controller.PlaySound(collectedClip);
             Destroy(gameObject);
         }
     }
