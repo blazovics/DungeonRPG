@@ -17,7 +17,7 @@ public class InventoryUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SpiritboxCount.text = knightController.Spiritboxes.ToString();
-        UrnCount.text = knightController.Urns.ToString();
+        SpiritboxCount.text = knightController.Spiritboxes.ToString() + "x";
+        UrnCount.text = knightController.Urns.ToString() + "x";
     }
 }

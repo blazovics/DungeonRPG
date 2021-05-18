@@ -54,6 +54,28 @@ public class KnightController : MonoBehaviour
     public GameObject spiritboxUI;
     float timerSpiritboxDisplay;
     float timerSpiritboxUIDisplay;
+    //Audio
+    AudioSource audioSource;
+    public AudioClip spiritboxUsedClip;
+    public AudioClip urnUsedClip;
+    private float random;
+    public AudioClip hit1Clip;
+    public AudioClip hit2Clip;
+    public AudioClip hit3Clip;
+    public AudioClip attack1Clip;
+    public AudioClip attack2Clip;
+    public AudioClip attack3Clip;
+    public AudioClip rollClip;
+    public AudioClip fireball1Clip;
+    public AudioClip fireball2Clip;
+    public AudioClip fireball3Clip;
+    public AudioClip footstep1Clip;
+    public AudioClip footstep2Clip;
+    public AudioClip footstep3Clip;
+    public AudioClip footstep4Clip;
+    private bool isRunning = false;
+    private float timeRunning = 0.4f;
+    private float timerRunning;
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +83,7 @@ public class KnightController : MonoBehaviour
         k_animator = GetComponent<Animator>();
         k_body2d = GetComponent<Rigidbody2D>();
 
-        knight_currentHealth = knight_maxHealth / 2;
+        knight_currentHealth = knight_maxHealth;
 
         //Consumable Display
         urnDialogBox.SetActive(false);
@@ -70,6 +92,11 @@ public class KnightController : MonoBehaviour
         timerSpiritboxDisplay = -1.0f;
         spiritboxUI.SetActive(false);
         timerSpiritboxUIDisplay = -1.0f;
+
+        //Audio
+        audioSource = GetComponent<AudioSource>();
+        k_preSpiritBoxSpeed = k_speed;
+        SetFootstepFrequency();
     }
 
     // Update is called once per frame
@@ -84,6 +111,16 @@ public class KnightController : MonoBehaviour
 
         // Swap direction of sprite depending on walk direction
         SwapDirection();
+
+        // Timing of the running audio
+        if (timerRunning >= 0)
+        {
+            timerRunning -= Time.deltaTime;
+            if (timerRunning < 0)
+            {
+                isRunning = false;
+            }
+        }
 
         // Timing of the Urn Consumable Display
         if (timerUrnDisplay >= 0)
@@ -160,6 +197,12 @@ public class KnightController : MonoBehaviour
             Roll();
         }
 
+        //Damaging the knight, for test purposes
+        else if (Input.GetKeyDown("f") && !k_rolling)
+        {
+            DamageKnightTest();
+        }
+
         //Use Urn Collectible
         else if (Input.GetKeyDown("q") && !k_rolling)
         {
@@ -203,12 +246,18 @@ public class KnightController : MonoBehaviour
             {
                 return;
             }
+            random = Random.value;
+            if (random < 0.33f) { PlaySound(hit1Clip); }
+            else if (random > 0.66f) { PlaySound(hit2Clip); }
+            else { PlaySound(hit3Clip); }
+
             k_isInvincible = true;
             k_InvincibleTimer = k_timeInvincible;
         }
 
         knight_currentHealth = Mathf.Clamp(knight_currentHealth + value, 0, knight_maxHealth);
-        Debug.Log(knight_currentHealth + "/" + knight_maxHealth);
+        //Debug.Log(knight_currentHealth + "/" + knight_maxHealth);
+        HealthbarUI.instance.SetValue(knight_currentHealth / (float)knight_maxHealth);
     }
 
     // Animation Events
@@ -259,6 +308,11 @@ public class KnightController : MonoBehaviour
         if (k_timeSinceAttack > 1.0f)
             k_currentAttack = 1;
 
+        //Plays Attack1, Attack2 or Attack3 Clip, based on which is coming up
+        if (k_currentAttack == 1) { PlaySound(attack1Clip); }
+        if (k_currentAttack == 2) { PlaySound(attack2Clip); }
+        if (k_currentAttack == 3) { PlaySound(attack3Clip); }
+
         // Call one of three attack animations "Attack1", "Attack2", "Attack3"
         k_animator.SetTrigger("Attack" + k_currentAttack);
 
@@ -272,6 +326,12 @@ public class KnightController : MonoBehaviour
 
         ProjectileControll projectile = projectileObject.GetComponent<ProjectileControll>();
         projectile.Launch(k_facingDirection, 300);
+
+        //Plays randomly either Fireball1, Fireball2 or Fireball3
+        random = Random.value;
+        if (random < 0.33f) { PlaySound(fireball1Clip); }
+        else if (random > 0.66f) { PlaySound(fireball2Clip); }
+        else { PlaySound(fireball3Clip); }
     }
 
     public void Roll()
@@ -280,6 +340,7 @@ public class KnightController : MonoBehaviour
         k_animator.SetTrigger("Roll");
         k_body2d.velocity = new Vector2(k_facingDirection * k_rollForce, vertical * k_speed);
         AE_ResetRoll();
+        PlaySound(rollClip);
     }
 
     public void Run()
@@ -287,6 +348,22 @@ public class KnightController : MonoBehaviour
         // Reset timer
         k_delayToIdle = 0.05f;
         k_animator.SetInteger("AnimState", 1);
+
+        //Footsteps audio and timer
+        if (isRunning) { return; }
+
+        //Plays randomly either Footstep1, 2, 3 or 4
+        random = Random.value;
+        if (random < 0.25f) { PlaySound(footstep1Clip); }
+        else if (random > 0.75f) { PlaySound(footstep2Clip); }
+        else if (random < 0.5){ PlaySound(footstep3Clip); }
+        else { PlaySound(footstep4Clip); }
+
+        PlaySound(footstep1Clip);
+        isRunning = true;
+        //timeRunning = 0.4f / (k_speed / 4);
+        if (isSpiritboxBuffed) { timeRunning = 0.4f / (k_speed / 4); }
+        timerRunning = timeRunning;
     }
 
     public void Idle()
@@ -297,6 +374,7 @@ public class KnightController : MonoBehaviour
             k_animator.SetInteger("AnimState", 0);
     }
 
+    //Urn Consumable, heals the player
     public void UseUrn()
     {
         if (Urns != 0)
@@ -304,9 +382,11 @@ public class KnightController : MonoBehaviour
             Urns--;
             ChangeHealth(20);
             DisplayUrnDialog();
+            PlaySound(urnUsedClip);
         }
     }
 
+    //Spiritbox consumable, buffs the player's speed and damge
     public void UseSpiritbox()
     {
         if (Spiritboxes != 0)
@@ -329,7 +409,12 @@ public class KnightController : MonoBehaviour
             k_meleeDamage = (int)(k_meleeDamage * percentage);
             k_projectileDamage = (int)(k_projectileDamage * percentage);
 
+            //Dialog on screen
             DisplaySpiritboxDialog();
+
+            //Audio
+            SetFootstepFrequency();
+            PlaySound(spiritboxUsedClip);
         }
     }
     public void SpiritboxRemoveBuff()
@@ -338,6 +423,8 @@ public class KnightController : MonoBehaviour
         k_speed = k_preSpiritBoxSpeed;
         k_meleeDamage = k_preSpiritBoxMeleeDamage;
         k_projectileDamage = k_preSpiritBoxProjectileDamage;
+        //Audio
+        SetFootstepFrequency();
     }
 
     public void DisplayUrnDialog()
@@ -354,5 +441,23 @@ public class KnightController : MonoBehaviour
         spiritboxDialogBox.SetActive(true);
         spiritboxUI.SetActive(true);
         BonusDamageUI.instance.StartBonusDamageUI(percentage);
+    }
+    
+    //For test purposes
+    public void DamageKnightTest()
+    {
+        ChangeHealth(-10);
+    }
+
+    //Audio
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
+    }
+    
+    //When the knight's speed is changed, use this to sync the footsteps to it
+    public void SetFootstepFrequency() 
+    {
+        timeRunning = 0.4f / (k_speed / 4);
     }
 }
