@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KnightController : MonoBehaviour
+public class KnightController : MonoBehaviour, IDamageManager
 {
     [SerializeField] float k_speed = 4.0f;
     [SerializeField] float k_rollForce = 5.0f;
@@ -17,6 +17,7 @@ public class KnightController : MonoBehaviour
     private Rigidbody2D k_body2d;
 
     public GameObject projectilePrefab;
+    public GameObject attackCollider;
 
     private int k_facingDirection = 1;
     // Health parameters
@@ -216,7 +217,7 @@ public class KnightController : MonoBehaviour
         }
 
         //Run
-        else if (Mathf.Abs(horizontal) > Mathf.Epsilon)
+        else if (Mathf.Abs(horizontal) > Mathf.Epsilon || Mathf.Abs(vertical) > Mathf.Epsilon)
         {
             Run();
         }
@@ -260,6 +261,25 @@ public class KnightController : MonoBehaviour
         HealthbarUI.instance.SetValue(knight_currentHealth / (float)knight_maxHealth);
     }
 
+    public void DamageTaken(int value)
+    {
+        if (value > 0)
+        {
+            if (k_isInvincible)
+            {
+                return;
+            }
+            knight_currentHealth -= value;
+            Hurt();
+
+            k_isInvincible = true;
+            k_InvincibleTimer = k_timeInvincible;
+        }
+
+        knight_currentHealth = Mathf.Clamp(knight_currentHealth + value, 0, knight_maxHealth);
+        Debug.Log(knight_currentHealth + "/" + knight_maxHealth);
+    }
+
     // Animation Events
     // Called in end of roll animation.
     void AE_ResetRoll()
@@ -299,6 +319,11 @@ public class KnightController : MonoBehaviour
         k_attacking = true;
 
         k_currentAttack++;
+        // AttackCollider object manager
+        GameObject attackManagerObject = Instantiate(attackCollider, new Vector2(k_body2d.position.x + 30.0f, k_body2d.position.y + 30.0f), Quaternion.identity);
+
+        MeleeAttackManager Melee = attackManagerObject.GetComponent<MeleeAttackManager>();
+        Melee.AttackBoxColl(k_facingDirection, k_body2d.position.x, k_body2d.position.y);
 
         // Loop back to one after third attack
         if (k_currentAttack > 3)
@@ -332,6 +357,17 @@ public class KnightController : MonoBehaviour
         if (random < 0.33f) { PlaySound(fireball1Clip); }
         else if (random > 0.66f) { PlaySound(fireball2Clip); }
         else { PlaySound(fireball3Clip); }
+    }
+
+    public void Hurt()
+    {
+        k_body2d.velocity = new Vector2(0, 0);
+        k_animator.SetTrigger("Hurt");
+    }
+
+    public void Death()
+    {
+        k_animator.SetTrigger("Death");
     }
 
     public void Roll()
