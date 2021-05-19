@@ -7,7 +7,6 @@ public class exitController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         KnightController player = collision.GetComponent<KnightController>();
-        Generation tilemap;
 
         if (collision != null)
         {

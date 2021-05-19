@@ -22,7 +22,8 @@ public class SpawnPlayer : MonoBehaviour
             {
                 if (firstRoom.data[y,x] == 0 && getPointValue8(y,x))
                 {
-                    player.transform.position = new Vector3(-59 + 30 *firstRoom.y, -71 + 30* firstRoom.x, 0);                    
+                    //GameObject.Instantiate(exit, new Vector3((y - max_width / 2) + 1.0f, (x - max_width / 2) + 1.0f, 0), Quaternion.identity);
+                    player.transform.position = new Vector3(-54 + 30 *firstRoom.y, -70 + 30* firstRoom.x, 0);                    
                 }
             }
         }

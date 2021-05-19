@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KnightController : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class KnightController : MonoBehaviour
     public SpawnPlayer playerSpawn;
     public LootSpawner lootSpawner;
     public EnemySpawner enemySpawner;
+    public Image blackScreen;
 
     //Generation
 
@@ -226,10 +228,12 @@ public class KnightController : MonoBehaviour
         print("Exit");
         if (other.tag == "ExitTile")
         {
+
+            blackScreen.CrossFadeAlpha(1.0f, 0.0f, true);
             Destroy(GameObject.FindGameObjectWithTag("ExitTile"));
-            print(lootSpawner.lootList);
             lootSpawner.resetLoot();
             enemySpawner.ResetEnemy();
+            mapgen.map.SetTilemapToNull();
             mapgen.Start();
             enemySpawner.Start();
             lootSpawner.Start();

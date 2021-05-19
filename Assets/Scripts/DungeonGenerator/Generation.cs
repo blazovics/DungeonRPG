@@ -8,7 +8,8 @@ using UnityEngine.Tilemaps;
 public class Generation : MonoBehaviour
 {
     public GameObject[] tiles = new GameObject[10];
-    public Tilemap tilemap;
+    public Tilemap wallTilemap;
+    public Tilemap groundTilemap;
     public WeightedRandomTile wallTile;
     public RandomTile groundTile;
     public GameObject exit;
@@ -16,13 +17,13 @@ public class Generation : MonoBehaviour
 
     public int width = 30;
     public int wall_width = 2;
-    public static int smooth8 = 5;
+    public static int smooth8 = 4;
     public static int smooth4 = 3;
 
     // Start is called before the first frame update
     public void Start()
     {
-        map = new Map(5, 4, tiles, tilemap, groundTile, wallTile, exit);
+        map = new Map(5, 1, tiles, wallTilemap, groundTilemap, groundTile, wallTile, exit);
         map.drawWholeMap();
         //print(map.GetStartingRoom().x + " " + map.GetStartingRoom().y);
         //map.rooms[0, 0].drawRoom();
@@ -234,15 +235,48 @@ public class Generation : MonoBehaviour
         public Room[,] rooms;
         public List<(int x, int y)> path;
         GameObject[] tiles;
-        Tilemap wholeMap;
+        Tilemap wallTilemap;
+        Tilemap groundTilemap;
         WeightedRandomTile wallTile;
         RandomTile groundTile;
         GameObject exit;
 
-        public Tilemap getWholeMap()
+        public Tilemap GetWallTilemap()
         {
-            return wholeMap;
-        }        
+            return wallTilemap;
+        }
+
+        public Tilemap GetGroundTilemap()
+        {
+            return groundTilemap;
+        }
+        
+        public void SetTilemapToNull()
+        {
+            wallTilemap = GetWallTilemap();
+            groundTilemap = GetGroundTilemap();
+            print(wallTilemap.cellBounds);
+            for (int x = -74; x < 75; x++)
+            {
+                for (int y = -74; y < 75; y++)
+                {
+                    print("Done");
+                    wallTilemap.SetTile(new Vector3Int(x, y, 0), null);
+                    groundTilemap.SetTile(new Vector3Int(x, y, 0), null);
+                    //print(x + " " + y);
+                }
+            }            
+            /*
+            for (int x = -74; x < 75; x++)
+            {
+                for (int y = -74; y < 75; y++)
+                {
+                    print(wallTilemap.GetTile(new Vector3Int(x, y, 0)));
+                }
+            }
+            */
+        }
+        
 
         public Room GetStartingRoom()
         {
@@ -270,12 +304,13 @@ public class Generation : MonoBehaviour
         }
 
 
-        public Map(int width, int max_rooms, GameObject[] tiles,Tilemap wholeMap, RandomTile groundTile, WeightedRandomTile wallTile, GameObject exit) {
+        public Map(int width, int max_rooms, GameObject[] tiles, Tilemap wallTilemap, Tilemap groundTilemap, RandomTile groundTile, WeightedRandomTile wallTile, GameObject exit) {
             this.width = width;
             this.max_rooms = max_rooms;
             this.rooms = new Room[width, width];
             this.tiles = tiles;
-            this.wholeMap = wholeMap;
+            this.wallTilemap = wallTilemap;
+            this.groundTilemap = groundTilemap;
             this.groundTile = groundTile;
             this.wallTile = wallTile;
             this.exit = exit;
@@ -294,17 +329,17 @@ public class Generation : MonoBehaviour
                     //GameObject.Instantiate(tiles[rooms[(int)(y/30), (int)(x/30)].data[(int)(y%30), (int)(x%30)]], new Vector3(y-max_width/2, x-max_width/2, 0), Quaternion.identity);                    
                     if (rooms[(int)(y / 30), (int)(x / 30)].data[(int)(y % 30), (int)(x % 30)] == 0 && finalRoom.x == rooms[(int)(y / 30), (int)(x / 30)].x && finalRoom.y == rooms[(int)(y / 30), (int)(x / 30)].y && spawnedExit)
                     {
-                        wholeMap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), groundTile);
-                        GameObject.Instantiate(exit , new Vector3((y - max_width / 2)+0.5f, (x - max_width / 2) + 0.5f, 0), Quaternion.identity);
+                        groundTilemap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), groundTile);
+                        GameObject.Instantiate(exit , new Vector3((y - max_width / 2) + 1.0f, (x - max_width / 2) + 1.0f, 0), Quaternion.identity);
                         spawnedExit = false;
                     }
                     else if (rooms[(int)(y / 30), (int)(x / 30)].data[(int)(y % 30), (int)(x % 30)] == 0)
                     {
-                        wholeMap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), groundTile);                        
+                        groundTilemap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), groundTile);                        
                     }
                     else
                     {
-                        wholeMap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), wallTile);
+                        wallTilemap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), wallTile);
                     }
                 }
             }
