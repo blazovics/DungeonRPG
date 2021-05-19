@@ -18,7 +18,7 @@ public class Generation : MonoBehaviour
     public int width = 30;
     public int wall_width = 2;
     public static int smooth8 = 4;
-    public static int smooth4 = 3;
+    public static int smooth4 = 4;
 
     // Start is called before the first frame update
     public void Start()
@@ -255,12 +255,12 @@ public class Generation : MonoBehaviour
         {
             wallTilemap = GetWallTilemap();
             groundTilemap = GetGroundTilemap();
-            print(wallTilemap.cellBounds);
+            //rint(wallTilemap.cellBounds);
             for (int x = -74; x < 75; x++)
             {
                 for (int y = -74; y < 75; y++)
                 {
-                    print("Done");
+                    //print("Done");
                     wallTilemap.SetTile(new Vector3Int(x, y, 0), null);
                     groundTilemap.SetTile(new Vector3Int(x, y, 0), null);
                     //print(x + " " + y);
@@ -296,7 +296,7 @@ public class Generation : MonoBehaviour
             {
                 if (path[path.Count-1].x == item.x && path[path.Count - 1].y == item.y)
                 {
-                    print(item.x + "halge" + item.y);
+                    //print(item.x + "halge" + item.y);
                     return item;
                 }
             }
@@ -495,7 +495,7 @@ public class Generation : MonoBehaviour
 
             for (int i = 0; i < path.Count; i++)
             {
-                print(path[i]);
+                //print(path[i]);
             }
         }
     }

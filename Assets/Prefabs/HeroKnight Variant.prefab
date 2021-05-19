@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7437265041687388194
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -3400356737764028760, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: k_speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -3400356737764028760, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: attack1Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: ef4a1842a9472c94f9b525eb92893a84, type: 3}
+    - target: {fileID: -3400356737764028760, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: attack2Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: f5c46da885af5e94d818e24c04efc8b0, type: 3}
+    - target: {fileID: -3400356737764028760, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: attack3Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4bee155099dc1fc44a1760fe23a83791, type: 3}
+    - target: {fileID: -3400356737764028760, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: spiritboxUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: -3400356737764028760, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: footstep2Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: c933a048d7a1f8e40a5b01375fab4d05, type: 3}
+    - target: {fileID: -3400356737764028760, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: footstep3Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: f59091cc215631247bc71f6892d20f8d, type: 3}
+    - target: {fileID: -3400356737764028760, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: footstep4Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: af56e5bd38d9b6c41a8f82e5781a5701, type: 3}
+    - target: {fileID: 7344749422405017600, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344749422405017600, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.040893793
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344749422405017600, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.31565595
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344749422405017600, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344749422405017600, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344749422405017600, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344749422405017600, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344749422405017600, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344749422405017600, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344749422405017600, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344749422405017600, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344749422405017602, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: m_Name
+      value: HeroKnight
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
