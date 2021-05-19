@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8891297585809678226}
   - component: {fileID: 518863100397776652}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HealthPotion
-  m_TagString: Untagged
+  m_TagString: Loot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

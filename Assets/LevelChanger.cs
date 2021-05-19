@@ -3,18 +3,9 @@ using UnityEngine;
 public class LevelChanger : MonoBehaviour
 {
     public Animator animator;
-
-    // Update is called once per frame
-    void Update()
+        
+    public void FadeToLevel()
     {
-        if (true)
-        {
-            FadeToLevel(1);
-        }
-    }
-    
-    public void FadeToLevel(int level)
-    {
-        animator.SetTrigger("FadeIntoBlack");
+        animator.SetTrigger("FadeIn");
     }
 }
