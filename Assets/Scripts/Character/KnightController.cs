@@ -251,6 +251,7 @@ public class KnightController : MonoBehaviour, IDamageManager
             if (random < 0.33f) { PlaySound(hit1Clip); }
             else if (random > 0.66f) { PlaySound(hit2Clip); }
             else { PlaySound(hit3Clip); }
+            Hurt();
 
             k_isInvincible = true;
             k_InvincibleTimer = k_timeInvincible;
