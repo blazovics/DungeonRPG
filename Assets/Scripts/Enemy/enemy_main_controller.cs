@@ -11,7 +11,7 @@ public abstract class enemy_main_controller : MonoBehaviour
     public float directionChangeFrequency;
     public float wanderDistance;
     public float chaseDistance;
-    public int currentHealth = 3;
+    public int currentHealth ;
 
     protected enemyStates enemyState = enemyStates.WANDER;
     protected Vector2 startingPosition;

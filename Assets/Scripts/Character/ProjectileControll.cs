@@ -55,6 +55,7 @@ public class ProjectileControll : MonoBehaviour
         try
         {
             other.gameObject.GetComponent<enemy_main_controller>().currentHealth -= dmg;
+            
         }
         catch
         {

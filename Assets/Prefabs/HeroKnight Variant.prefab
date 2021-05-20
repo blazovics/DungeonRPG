@@ -40,6 +40,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: af56e5bd38d9b6c41a8f82e5781a5701, type: 3}
     - target: {fileID: -3400356737764028760, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: k_meleeDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -3400356737764028760, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
       propertyPath: k_projectileDamage
       value: 20
       objectReference: {fileID: 0}
