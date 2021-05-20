@@ -23,7 +23,7 @@ public class enemy2_controller : enemy_main_controller
     // Update is called once per frame
     void Update()
     {
-
+        
         switch (enemyState)
         {
             case enemyStates.WANDER:
@@ -37,17 +37,17 @@ public class enemy2_controller : enemy_main_controller
                     }
                     Move();
                     animationDuringWander();
-                    /*
+                    
                     if (PlayerIsInChaseDistance())
                     {
                         enemyState = enemyStates.CHASE;
                         prevX = transform.position.x;
                     }
-                    */
+                    
                     break;
                     
                 }
-                /*
+                
             case enemyStates.CHASE:
                 {
                     path.canSearch = true;
@@ -63,11 +63,11 @@ public class enemy2_controller : enemy_main_controller
                     }
                     break;
                 }
-                */
+                
             case enemyStates.ATTACK:
                 {
                     animationDuringAttack(true);
-                    float dist = Mathf.Sqrt(Mathf.Pow(player.position.x - transform.position.x, 2) + Mathf.Pow(player.position.y - transform.position.y, 2));
+                    float dist = Mathf.Sqrt(Mathf.Pow(player.transform.position.x - transform.position.x, 2) + Mathf.Pow(player.transform.position.y - transform.position.y, 2));
                     if (Time.time - lastProjectile > projectileFrequency)
                     {
                         Launch();
@@ -105,11 +105,12 @@ public class enemy2_controller : enemy_main_controller
 
     void Launch()
     {
-        float divider = Mathf.Max(Mathf.Abs(player.position.x - transform.position.x), Mathf.Abs(player.position.y - transform.position.y));
-        Vector2 direction = new Vector2((player.position.x - transform.position.x)/divider, (player.position.y - transform.position.y)/divider);
+        float divider = Mathf.Max(Mathf.Abs(player.transform.position.x - transform.position.x), Mathf.Abs(player.transform.position.y - transform.position.y));
+        Vector2 direction = new Vector2((player.transform.position.x - transform.position.x)/divider, (player.transform.position.y - transform.position.y)/divider);
         GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + direction , Quaternion.identity);
-        flying_eye_projectile projectile = projectileObject.GetComponent<flying_eye_projectile>();
-        projectile.Launch(direction, projectileSpeed);
+        projectile_controller projectile = projectileObject.GetComponent<projectile_controller>();
+        projectile.damage = 10;
+        projectile.Launch(direction, projectileSpeed, player);
     }
 
     void animationDuringPathSearch()
@@ -127,9 +128,18 @@ public class enemy2_controller : enemy_main_controller
 
     void animationDuringAttack(bool attackSwitch)
     {
-        if (player.position.x < transform.position.x) animator.SetFloat("Move", -0.5f);
+        if (player.transform.position.x < transform.position.x) animator.SetFloat("Move", -0.5f);
         else animator.SetFloat("Move", 0.5f);
         animator.SetBool("Attack", attackSwitch);
     }
 
+    protected override void enemyDeath()
+    {
+        animator.SetBool("DeathSequence", true);
+        if (Time.time > deathTimer + 0.7)
+        {
+            Destroy(gameObject);
+        }
+        return;
+    }
 }

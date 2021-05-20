@@ -22,7 +22,7 @@ public class KnightController : MonoBehaviour
     private int k_facingDirection = 1;
     // Health parameters
     private int knight_health { get { return knight_currentHealth; } }
-    private int knight_currentHealth;
+    private int knight_currentHealth = 100;
     // Roll Parameters
     private bool k_rolling = false;
     // Attack Parameters
@@ -40,6 +40,7 @@ public class KnightController : MonoBehaviour
     public LootSpawner lootSpawner;
     public EnemySpawner enemySpawner;
     public Image blackScreen;
+    public GameObject pathfinder;
 
     //Generation
 
@@ -48,6 +49,7 @@ public class KnightController : MonoBehaviour
     {
         k_animator = GetComponent<Animator>();
         k_body2d = GetComponent<Rigidbody2D>();
+        
     }
 
     // Update is called once per frame
@@ -238,6 +240,8 @@ public class KnightController : MonoBehaviour
             enemySpawner.Start();
             lootSpawner.Start();
             playerSpawn.Start();
+            pathfinder.GetComponent<Scan>().Start();
+            
         }
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class enemy1_controller : enemy_main_controller
 {
 
+    float attackTimer = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -30,16 +31,16 @@ public class enemy1_controller : enemy_main_controller
                     }
                     Move();
                     animationDuringWander();
-                    /*
+                    
                     if (PlayerIsInChaseDistance())
                     {
                         enemyState = enemyStates.CHASE;
                         prevX = transform.position.x;
                     }
-                    */
+                    
                     break;
                 }
-                /*
+                
             case enemyStates.CHASE:
                 {
                     path.canSearch = true;  
@@ -51,22 +52,29 @@ public class enemy1_controller : enemy_main_controller
                     if (path.reachedEndOfPath)
                     {
                         enemyState = enemyStates.ATTACK;
+                       
                     }
                     break;
                 }
-                */
+                
             case enemyStates.ATTACK:
                 {
                     animator.SetBool("Attack", true);
-                    float dist = Mathf.Sqrt(Mathf.Pow(player.position.x - transform.position.x, 2) + Mathf.Pow(player.position.y - transform.position.y, 2));
+                    float dist = Mathf.Sqrt(Mathf.Pow(player.transform.position.x - transform.position.x, 2) + Mathf.Pow(player.transform.position.y - transform.position.y, 2));
                     if (dist > path.endReachedDistance)
                     {
                         enemyState = enemyStates.CHASE;
                         animator.SetBool("Attack", false);
                     }
+                    if (dist < 2 && Time.time>attackTimer + 1)
+                    {
+                        player.GetComponent<KnightController>().ChangeHealth(-5);
+                        attackTimer = Time.time;
+                    }
                     break;
                 }
         }
+
 
     }
     private void FixedUpdate()
@@ -80,6 +88,9 @@ public class enemy1_controller : enemy_main_controller
                 }
         }
     }
+
+
+
     void animationDuringPathSearch()
     {
         if (prevX > transform.position.x) animator.SetFloat("Move", -0.5f);
@@ -93,4 +104,13 @@ public class enemy1_controller : enemy_main_controller
         else animator.SetFloat("Move", -0.5f);
     }
 
+    protected override void enemyDeath()
+    {
+        animator.SetBool("DeathSequence", true);
+        if (Time.time > deathTimer + 0.7)
+        {
+            Destroy(gameObject);
+        }
+        return;
+    }
 }

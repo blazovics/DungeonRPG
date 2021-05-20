@@ -9,6 +9,8 @@ public class EnemySpawner : MonoBehaviour
 
     public int level;
     public GameObject enemy;
+    public GameObject enemy2;
+    public GameObject enemy3;
     public GameObject player;
     public Generation mapgen;
     public List<GameObject> enemies;
@@ -22,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
         level = 2;
         Spawning();
     }
+
 
     public void ResetEnemy()
     {
@@ -50,8 +53,26 @@ public class EnemySpawner : MonoBehaviour
                     !enemies.Any(e => e.transform.position == new Vector3(randX, randY,0)))
                 { break; }
             }
-            Instantiate(enemy, new Vector2(randX, randY), Quaternion.identity);
-            enemies.Add(enemy);
+            float random = Random.Range(0.0f,9.0f);
+            if(random < 3.0f)
+            {
+                enemy.GetComponent<enemy_main_controller>().player = player;
+                Instantiate(enemy, new Vector2(randX, randY), Quaternion.identity);
+                enemies.Add(enemy);
+            }
+            if (3.0 > random && random < 6.0)
+            {
+                enemy2.GetComponent<enemy_main_controller>().player = player;
+                Instantiate(enemy2, new Vector2(randX, randY), Quaternion.identity);
+                enemies.Add(enemy2);
+            }
+            if (6.0 > random && random < 9.0)
+            {
+                enemy3.GetComponent<enemy_main_controller>().player = player;
+                Instantiate(enemy3, new Vector2(randX, randY), Quaternion.identity);
+                enemies.Add(enemy3);
+            }
+
         }
     }    
 }

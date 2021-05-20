@@ -411,15 +411,39 @@ Tilemap:
   m_Enabled: 1
   m_Tiles: {}
   m_AnimatedTiles: {}
-  m_TileAssetArray: []
-  m_TileSpriteArray: []
-  m_TileMatrixArray: []
-  m_TileColorArray: []
+  m_TileAssetArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileMatrixArray:
+  - m_RefCount: 0
+    m_Data:
+      e00: 1.084227e-19
+      e01: -3.044703e-19
+      e02: -3.0444755e-19
+      e03: -3.0444755e-19
+      e10: 7.55e-43
+      e11: 3.35e-43
+      e12: 3.35e-43
+      e13: 3.35e-43
+      e20: 463.61865
+      e21: -1.00243e-40
+      e22: -7.6362343
+      e23: -1.00243e-40
+      e30: 4.5905e-41
+      e31: 7.57e-43
+      e32: 7.54e-43
+      e33: 7.57e-43
+  m_TileColorArray:
+  - m_RefCount: 0
+    m_Data: {r: -9.9212e-41, g: -9.9212e-41, b: -9.9212e-41, a: -9.9212e-41}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: 0, y: 0, z: 0}
-  m_Size: {x: 0, y: 0, z: 1}
+  m_Origin: {x: -19, y: -10, z: 0}
+  m_Size: {x: 19, y: 10, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -725,8 +749,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1330838791
-  m_SortingLayer: -2
+  m_SortingLayerID: 1655247765
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -746,15 +770,39 @@ Tilemap:
   m_Enabled: 1
   m_Tiles: {}
   m_AnimatedTiles: {}
-  m_TileAssetArray: []
-  m_TileSpriteArray: []
-  m_TileMatrixArray: []
-  m_TileColorArray: []
+  m_TileAssetArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileMatrixArray:
+  - m_RefCount: 0
+    m_Data:
+      e00: 1.084227e-19
+      e01: -3.044703e-19
+      e02: -3.0444755e-19
+      e03: -3.0444755e-19
+      e10: 7.55e-43
+      e11: 3.35e-43
+      e12: 3.35e-43
+      e13: 3.35e-43
+      e20: 463.61865
+      e21: -2.24992e-40
+      e22: -7.8310432
+      e23: -2.24992e-40
+      e30: 4.5905e-41
+      e31: 7.57e-43
+      e32: 7.54e-43
+      e33: 7.57e-43
+  m_TileColorArray:
+  - m_RefCount: 0
+    m_Data: {r: -2.30037e-40, g: -2.30037e-40, b: -2.30037e-40, a: -2.30037e-40}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: 0, y: 0, z: 0}
-  m_Size: {x: 0, y: 0, z: 1}
+  m_Origin: {x: -25, y: -13, z: 0}
+  m_Size: {x: 25, y: 19, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -865,6 +913,105 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1740307712}
   m_CullTransparentMesh: 1
+--- !u!1 &1926455864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1926455866}
+  - component: {fileID: 1926455865}
+  - component: {fileID: 1926455867}
+  m_Layer: 0
+  m_Name: pathfinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1926455865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926455864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAAAIIez49FBmTwIAAPMEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VEtz2jAQ/iuMzqWDeSRDb60hpAcCE5rJxRchrbEGWfLoER4Z/ntXso0JnZ4s7fft7rcP+ZMIZStgTpuFEXypOZAfPRLO5FuvA5/hSHdabcQZWs674K4IJBo5r9QJjfYkuFldgjOC/VQ7GcgDNHolcm3KOd9Bqq2zaM6ptICQ0S54KzR99sgRP/1pcDnhafgYTmc8TQe9Cx4ZKAemo7bEllazvGKSlhXwILkjJ5OWjqdIVFhOwwnSmZZS2EYLcacq1prSynqsBAlcUKwtChjitQCxK1xzuTqv8tyCa0QZepoJgy2qo5Jfuu5bSe2+VvZBpQ95HsZRUh1z+Q/cTyKcG10+t2mTQUjhCsH2r/TEqHU3fb01zzrdSezPgco93Up4L0C96IXRXnEEnfHB1VsYzrrrtbK0ALbv7LXUO6Ov/j+dUMMlFn9MpSi3Afo+rg0bqWO74+zB4GB+o+C4GbYJgdag4s3CH7q7XaEGeBLGOoSaKlWQt9XeBCqZx56FarxLtVEQzY3oChSV7rTGMO5+gnfYTdo75ImGx9Ikb7D2Ddy5RHPHHwzuoLU+XIdlC31Ygi1W3kmhoBMdgBfsU6qVqhfMfgWD18abnLJbCTsv+NfVImwypTBlEz4cDabTB95/3G55MuajCZ/kw1HCSdw9obBOKte10KY9ODXVpVW4Z+0/pLcwtIrLzg09LMS51DcChcr1hhkAtaojtPosGEyCj5LPucAGbcA5oeK8yWdGpGZ74Nk1UBZLnR+doVkXJSOV+NAuWDKSxp9GRi7k8hdQSwMEFAAACAgAAAgh7O0Kpw5tAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTVUVBKL0osyCgGihiCOKWZKSB2tFKyqWViqmWyaYqRsYGlpVmKrnlSUoqhSYqxaYppmpGxYYpSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAAgh7Pj0UGZPAgAA8wQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAgh7O0Kpw5tAAAAeAAAAAkAJAAAAAAAAAAAAAAAnAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABUAwAAAAA=
+    upgradeData: 
+    file_cachedStartup: {fileID: 0}
+    data_cachedStartup: 
+    cacheStartup: 0
+  showNavGraphs: 1
+  showUnwalkableNodes: 1
+  debugMode: 0
+  debugFloor: 0
+  debugRoof: 1
+  manualDebugFloorRoof: 0
+  showSearchTree: 0
+  unwalkableNodeDebugSize: 0.3
+  logPathResults: 1
+  maxNearestNodeDistance: 100
+  scanOnStartup: 1
+  fullGetNearestSearch: 0
+  prioritizeGraphs: 0
+  prioritizeGraphsLimit: 1
+  colorSettings:
+    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
+    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
+    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
+    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
+    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
+    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
+    _AreaColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+  tagNames: []
+  heuristic: 2
+  heuristicScale: 1
+  threadCount: 1
+  maxFrameTime: 10
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: 0.2
+  euclideanEmbedding:
+    mode: 0
+    seed: 0
+    pivotPointRoot: {fileID: 0}
+    spreadOutCount: 1
+  showGraphs: 1
+--- !u!4 &1926455866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926455864}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -54, y: -40, z: -0.73688513}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1926455867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926455864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139b5732dbd26554e931782f4af06bc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2014922083
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,7 +1091,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
-  enemy: {fileID: 1561928911554837302, guid: 7d15f606159f7714db332b4fa7fa614d, type: 3}
+  enemy: {fileID: 1031100136977026392, guid: e24299a905b3d5a4d8c2b101e7d67bea, type: 3}
+  enemy2: {fileID: 1561928911554837302, guid: 7d15f606159f7714db332b4fa7fa614d, type: 3}
+  enemy3: {fileID: 8432926752547465377, guid: 31f4410cc7c7c0f4e84ead096770f95c, type: 3}
   player: {fileID: 7344749422334882969}
   mapgen: {fileID: 868613115}
   enemies: []
@@ -1038,6 +1187,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7055816279085096205, guid: be93b5e4a6b609644b79ae317548760a, type: 3}
+      propertyPath: pathfinder
+      value: 
+      objectReference: {fileID: 1926455864}
+    - target: {fileID: 7055816279085096205, guid: be93b5e4a6b609644b79ae317548760a, type: 3}
       propertyPath: blackScreen
       value: 
       objectReference: {fileID: 1740307714}
@@ -1045,6 +1198,10 @@ PrefabInstance:
       propertyPath: lootSpawner
       value: 
       objectReference: {fileID: 2014922084}
+    - target: {fileID: 7055816279085096205, guid: be93b5e4a6b609644b79ae317548760a, type: 3}
+      propertyPath: pathfinding
+      value: 
+      objectReference: {fileID: 1926455864}
     - target: {fileID: 7055816279085096205, guid: be93b5e4a6b609644b79ae317548760a, type: 3}
       propertyPath: playerSpawn
       value: 
