@@ -34,7 +34,7 @@ public class KnightController : MonoBehaviour, IDamageManager
     private float k_delayToIdle = 0.0f;
     // Invincible Parameters
     private bool k_isInvincible = false;
-    private float k_timeInvincible = 2.0f;
+    public float k_timeInvincible = 0.75f;
     private float k_InvincibleTimer;
     //Inventory Parameters
     public int Urns { get; set; } = 0;
@@ -86,6 +86,9 @@ public class KnightController : MonoBehaviour, IDamageManager
     public LootSpawner lootSpawner;
     public EnemySpawner enemySpawner;
     public Image blackScreen;
+    //Death
+    private float deathTimer = 1.0f;
+    private bool isDying = false;
 
     // Start is called before the first frame update
     void Start()
@@ -115,7 +118,16 @@ public class KnightController : MonoBehaviour, IDamageManager
 
         if(knight_currentHealth <= 0)
         {
-            Death();
+            if (!isDying)
+            {
+                k_animator.SetTrigger("Death");
+                isDying = true;
+            }
+            deathTimer -= Time.deltaTime;
+            if(deathTimer <= 0)
+            {
+                Death();
+            }
         }
 
         // Input x and y
@@ -194,13 +206,13 @@ public class KnightController : MonoBehaviour, IDamageManager
         }
 
         //Projectile
-        if (Input.GetMouseButtonDown(1) && !k_rolling)
+        if (Input.GetMouseButtonDown(1) && k_timeSinceAttack > 0.5f && !k_rolling)
         {
             Launch();
         }
 
         //Attack
-        if (Input.GetMouseButtonDown(0) && k_timeSinceAttack > 0.25f && !k_rolling)
+        else if (Input.GetMouseButtonDown(0) && k_timeSinceAttack > 0.25f && !k_rolling)
         {
             Attack();
         }
@@ -375,6 +387,8 @@ public class KnightController : MonoBehaviour, IDamageManager
         if (random < 0.33f) { PlaySound(fireball1Clip); }
         else if (random > 0.66f) { PlaySound(fireball2Clip); }
         else { PlaySound(fireball3Clip); }
+
+        k_timeSinceAttack = 0.0f;
     }
 
     public void Hurt()
@@ -385,7 +399,6 @@ public class KnightController : MonoBehaviour, IDamageManager
 
     public void Death()
     {
-        k_animator.SetTrigger("Death");
         SceneManager.LoadScene("GameOverMenu 1");
     }
 
@@ -528,10 +541,13 @@ public class KnightController : MonoBehaviour, IDamageManager
             enemySpawner.ResetEnemy();
             mapgen.map.SetTilemapToNull();
             mapgen.Start();
+
+            enemySpawner.level += 1;
             enemySpawner.Start();
             lootSpawner.Start();
             playerSpawn.Start();
             pathfinder.GetComponent<Scan>().Start();
+        
         }
     }
 }

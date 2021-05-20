@@ -8,12 +8,10 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
 
     public int level;
-    public GameObject enemy;
-    public GameObject enemy2;
-    public GameObject enemy3;
     public GameObject player;
     public Generation mapgen;
     public List<GameObject> enemies;
+    public List<GameObject> enemyTypes;
     private GameObject[] enemyObjects;
 
     int randX;
@@ -21,7 +19,6 @@ public class EnemySpawner : MonoBehaviour
 
     public void Start()
     {
-        level = 2;
         Spawning();
     }
 
@@ -37,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
     }
     void Spawning()
     {
-        for(int i = 0; i < level*40; i++)
+        for(int i = 0; i < 5*level+40; i++)
         {
             enemies = new List<GameObject>();
             while (true)
@@ -53,25 +50,11 @@ public class EnemySpawner : MonoBehaviour
                     !enemies.Any(e => e.transform.position == new Vector3(randX, randY,0)))
                 { break; }
             }
-            float random = Random.Range(0.0f,9.0f);
-            if(random < 3.0f)
-            {
-                enemy.GetComponent<enemy_main_controller>().player = player;
-                Instantiate(enemy, new Vector2(randX, randY), Quaternion.identity);
-                enemies.Add(enemy);
-            }
-            if (3.0 > random && random < 6.0)
-            {
-                enemy2.GetComponent<enemy_main_controller>().player = player;
-                Instantiate(enemy2, new Vector2(randX, randY), Quaternion.identity);
-                enemies.Add(enemy2);
-            }
-            if (6.0 > random && random < 9.0)
-            {
-                enemy3.GetComponent<enemy_main_controller>().player = player;
-                Instantiate(enemy3, new Vector2(randX, randY), Quaternion.identity);
-                enemies.Add(enemy3);
-            }
+            int random = Random.Range(0,3);
+            enemyTypes[random].GetComponent<enemy_main_controller>().player = player;
+            Instantiate(enemyTypes[random], new Vector2(randX, randY), Quaternion.identity);
+            enemies.Add(enemyTypes[random]);
+
 
         }
     }    

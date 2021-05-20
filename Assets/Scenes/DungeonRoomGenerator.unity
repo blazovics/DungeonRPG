@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1363373742}
-  cameraDistance: 30
+  cameraDistance: 90
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -191,7 +191,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 16
+  orthographic size: 0
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -328,6 +328,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3623330679256768930, guid: 2bdf6a6c9ab0e4b48aa44058554dc0a3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 4.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623330679256768930, guid: 2bdf6a6c9ab0e4b48aa44058554dc0a3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.8
+      objectReference: {fileID: 0}
     - target: {fileID: 3623330680157084245, guid: 2bdf6a6c9ab0e4b48aa44058554dc0a3, type: 3}
       propertyPath: m_Name
       value: UI
@@ -419,6 +427,30 @@ PrefabInstance:
     - target: {fileID: 3623330680157084265, guid: 2bdf6a6c9ab0e4b48aa44058554dc0a3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623330680300810549, guid: 2bdf6a6c9ab0e4b48aa44058554dc0a3, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623330680300810549, guid: 2bdf6a6c9ab0e4b48aa44058554dc0a3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623330680300810549, guid: 2bdf6a6c9ab0e4b48aa44058554dc0a3, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623330680300810549, guid: 2bdf6a6c9ab0e4b48aa44058554dc0a3, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623330680300810549, guid: 2bdf6a6c9ab0e4b48aa44058554dc0a3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -172.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623330680300810549, guid: 2bdf6a6c9ab0e4b48aa44058554dc0a3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 35.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bdf6a6c9ab0e4b48aa44058554dc0a3, type: 3}
@@ -1256,12 +1288,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
-  enemy: {fileID: 1031100136977026392, guid: e24299a905b3d5a4d8c2b101e7d67bea, type: 3}
-  enemy2: {fileID: 1561928911554837302, guid: 7d15f606159f7714db332b4fa7fa614d, type: 3}
-  enemy3: {fileID: 8432926752547465377, guid: 31f4410cc7c7c0f4e84ead096770f95c, type: 3}
   player: {fileID: 1363373741}
   mapgen: {fileID: 868613115}
   enemies: []
+  enemyTypes:
+  - {fileID: 1031100136977026392, guid: e24299a905b3d5a4d8c2b101e7d67bea, type: 3}
+  - {fileID: 1561928911554837302, guid: 7d15f606159f7714db332b4fa7fa614d, type: 3}
+  - {fileID: 8432926752547465377, guid: 31f4410cc7c7c0f4e84ead096770f95c, type: 3}
 --- !u!4 &2060890948
 Transform:
   m_ObjectHideFlags: 0

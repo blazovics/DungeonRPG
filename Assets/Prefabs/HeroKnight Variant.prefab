@@ -39,6 +39,10 @@ PrefabInstance:
       propertyPath: footstep4Clip
       value: 
       objectReference: {fileID: 8300000, guid: af56e5bd38d9b6c41a8f82e5781a5701, type: 3}
+    - target: {fileID: -3400356737764028760, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
+      propertyPath: k_projectileDamage
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7344749422405017600, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -85,7 +89,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7344749422405017602, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}
       propertyPath: m_Name
-      value: HeroKnight
+      value: HeroKnight Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f00f33035d19a4dbe05dd9b16cb912, type: 3}

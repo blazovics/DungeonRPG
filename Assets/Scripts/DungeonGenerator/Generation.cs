@@ -23,7 +23,7 @@ public class Generation : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        map = new Map(5, 10, tiles, wallTilemap, groundTilemap, groundTile, wallTile, exit);
+        map = new Map(5, 1, tiles, wallTilemap, groundTilemap, groundTile, wallTile, exit);
         map.drawWholeMap();
         
         //print(map.GetStartingRoom().x + " " + map.GetStartingRoom().y);
