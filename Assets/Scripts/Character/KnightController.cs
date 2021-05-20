@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class KnightController : MonoBehaviour, IDamageManager
@@ -38,6 +39,7 @@ public class KnightController : MonoBehaviour, IDamageManager
     //Inventory Parameters
     public int Urns { get; set; } = 0;
     public int Spiritboxes { get; set; } = 0;
+    public GameObject pathfinder;
 
     public float spiritboxTimeBuffed = 10.0f;
     private bool isSpiritboxBuffed = false;
@@ -110,6 +112,12 @@ public class KnightController : MonoBehaviour, IDamageManager
     // Update is called once per frame
     void Update()
     {
+
+        if(knight_currentHealth <= 0)
+        {
+            Death();
+        }
+
         // Input x and y
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
@@ -331,6 +339,7 @@ public class KnightController : MonoBehaviour, IDamageManager
         GameObject attackManagerObject = Instantiate(attackCollider, new Vector2(k_body2d.position.x + 30.0f, k_body2d.position.y + 30.0f), Quaternion.identity);
 
         MeleeAttackManager Melee = attackManagerObject.GetComponent<MeleeAttackManager>();
+        Melee.dmg = k_meleeDamage;
         Melee.AttackBoxColl(k_facingDirection, k_body2d.position.x, k_body2d.position.y);
 
         // Loop back to one after third attack
@@ -358,6 +367,7 @@ public class KnightController : MonoBehaviour, IDamageManager
         GameObject projectileObject = Instantiate(projectilePrefab, k_body2d.position + Vector2.up * 0.8f, Quaternion.identity);
 
         ProjectileControll projectile = projectileObject.GetComponent<ProjectileControll>();
+        projectile.dmg = k_projectileDamage;
         projectile.Launch(k_facingDirection, 300);
 
         //Plays randomly either Fireball1, Fireball2 or Fireball3
@@ -376,6 +386,7 @@ public class KnightController : MonoBehaviour, IDamageManager
     public void Death()
     {
         k_animator.SetTrigger("Death");
+        SceneManager.LoadScene("GameOverMenu 1");
     }
 
     public void Roll()
@@ -520,6 +531,7 @@ public class KnightController : MonoBehaviour, IDamageManager
             enemySpawner.Start();
             lootSpawner.Start();
             playerSpawn.Start();
+            pathfinder.GetComponent<Scan>().Start();
         }
     }
 }

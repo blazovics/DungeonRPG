@@ -9,14 +9,15 @@ public class enemy1_controller : enemy_main_controller
     float attackTimer = 0;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        base.Start();
+        base.Awake();
     }
 
     // Update is called once per frame
     void Update()
     {
+        base.Update();
 
         switch (enemyState)
         {
@@ -107,7 +108,7 @@ public class enemy1_controller : enemy_main_controller
     protected override void enemyDeath()
     {
         animator.SetBool("DeathSequence", true);
-        if (Time.time > deathTimer + 0.7)
+        if (Time.time > deathTimer + 2)
         {
             Destroy(gameObject);
         }

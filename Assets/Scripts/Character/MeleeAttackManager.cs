@@ -8,6 +8,8 @@ public class MeleeAttackManager : MonoBehaviour
 
     private float attackbox_timer;
 
+    public int dmg;
+
     // Update is called once per frame
     void Update()
     {
@@ -41,6 +43,15 @@ public class MeleeAttackManager : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         //we also add a debug log to know what the projectile touch
-        Debug.Log("Attacked " + other.gameObject);
+        try
+        {
+            other.gameObject.GetComponent<enemy_main_controller>().currentHealth -= dmg;
+        }
+        catch
+        {
+
+        }
+
+        Destroy(gameObject);
     }
 }

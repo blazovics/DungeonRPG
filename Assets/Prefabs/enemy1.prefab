@@ -106,6 +106,7 @@ MonoBehaviour:
   directionChangeFrequency: 1
   wanderDistance: 2
   chaseDistance: 4
+  currentHealth: 40
 --- !u!50 &1408817959
 Rigidbody2D:
   serializedVersion: 4

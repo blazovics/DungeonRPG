@@ -27,7 +27,7 @@ public abstract class enemy_main_controller : MonoBehaviour
     private bool deathTimerSetOnlyOnce = true;
 
     // Start is called before the first frame update
-    protected void Start()
+    protected void Awake()
     {
         startingPosition = transform.position;
         gameObject.GetComponent<AIDestinationSetter>().target = player.transform;
@@ -37,7 +37,7 @@ public abstract class enemy_main_controller : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if (currentHealth <= 0)
         {
@@ -48,7 +48,9 @@ public abstract class enemy_main_controller : MonoBehaviour
                 deathTimerSetOnlyOnce = false;
             }
         }
+
     }
+
 
     protected abstract void enemyDeath();
  
@@ -87,10 +89,7 @@ public abstract class enemy_main_controller : MonoBehaviour
         return false;
     }
 
-    public void changeHealth(int value)
-    {
-        currentHealth = currentHealth + value;
-    }
+
 
 
 

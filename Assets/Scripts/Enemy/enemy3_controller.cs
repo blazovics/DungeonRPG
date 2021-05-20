@@ -13,9 +13,9 @@ public class enemy3_controller : enemy_main_controller
     Rigidbody2D rigidbody2d;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        base.Start();
+        base.Awake();
         rigidbody2d = GetComponent<Rigidbody2D>();
         firedAlready = false;
     }
@@ -23,6 +23,7 @@ public class enemy3_controller : enemy_main_controller
     // Update is called once per frame
     void Update()
     {
+        base.Update();
         switch (enemyState)
         {
             case enemyStates.WANDER:

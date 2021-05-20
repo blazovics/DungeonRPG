@@ -10,6 +10,8 @@ public class ProjectileControll : MonoBehaviour
     private float fireball_timer;
     private Vector2 direction;
 
+    public int dmg;
+
     // Awake called after the creation of the object
     void Awake()
     {
@@ -50,7 +52,15 @@ public class ProjectileControll : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         //we also add a debug log to know what the projectile touch
-        Debug.Log("Projectile Collision with " + other.gameObject);
+        try
+        {
+            other.gameObject.GetComponent<enemy_main_controller>().currentHealth -= dmg;
+        }
+        catch
+        {
+
+        }
+        
         Destroy(gameObject);
     }
 }

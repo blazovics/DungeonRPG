@@ -14,16 +14,16 @@ public class enemy2_controller : enemy_main_controller
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        base.Start();
+        base.Awake();
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        base.Update();
         switch (enemyState)
         {
             case enemyStates.WANDER:
@@ -136,7 +136,7 @@ public class enemy2_controller : enemy_main_controller
     protected override void enemyDeath()
     {
         animator.SetBool("DeathSequence", true);
-        if (Time.time > deathTimer + 0.7)
+        if (Time.time > deathTimer + 2)
         {
             Destroy(gameObject);
         }
