@@ -25,6 +25,7 @@ public class Generation : MonoBehaviour
     {
         map = new Map(5, 1, tiles, wallTilemap, groundTilemap, groundTile, wallTile, exit);
         map.drawWholeMap();
+        
         //print(map.GetStartingRoom().x + " " + map.GetStartingRoom().y);
         //map.rooms[0, 0].drawRoom();
     }

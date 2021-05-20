@@ -33,7 +33,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561928911554837302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.79, y: -9.4, z: -7.943442}
+  m_LocalPosition: {x: 14.79, y: -9.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -107,8 +107,9 @@ MonoBehaviour:
   directionChangeFrequency: 1
   wanderDistance: 2
   chaseDistance: 4
+  currentHealth: 1
   projectilePrefab: {fileID: 8557987006265753777, guid: a6fe216cc910b7648878aa9220973490, type: 3}
-  projectileFrequency: 1
+  projectileFrequency: 0.6
   projectileSpeed: 20
 --- !u!50 &1561928911554837294
 Rigidbody2D:
