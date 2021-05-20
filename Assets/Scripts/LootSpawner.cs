@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class LootSpawner : MonoBehaviour
 {
-    public int level;
     public GameObject[] lootItems = new GameObject[10];
     public GameObject player;
     public Generation mapgen;
@@ -16,7 +15,6 @@ public class LootSpawner : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        level = 2;
         Spawning();
     }
 
@@ -32,7 +30,7 @@ public class LootSpawner : MonoBehaviour
 
     void Spawning()
     {
-        for (int i = 0; i < level * 20; i++)
+        for (int i = 0; i < 30; i++)
         {
             lootList = new List<GameObject>();
             while (true)
