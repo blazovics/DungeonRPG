@@ -88,7 +88,7 @@ public class enemy3_controller : enemy_main_controller
         if (prevX > transform.position.x) animator.SetFloat("Move", -0.5f);
         else animator.SetFloat("Move", 0.5f);
         prevX = transform.position.x;
-        Debug.Log(prevX);
+        //Debug.Log(prevX);
     }
 
     void destruct()

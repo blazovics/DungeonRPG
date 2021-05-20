@@ -25,6 +25,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void ResetEnemy()
     {
+        Debug.Log("Reset elõtt" + enemies.Count);
         enemies.Clear();
         enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject item in enemyObjects)
@@ -51,11 +52,10 @@ public class EnemySpawner : MonoBehaviour
                 { break; }
             }
             int random = Random.Range(0,3);
-            enemyTypes[random].GetComponent<enemy_main_controller>().player = player;
-            Instantiate(enemyTypes[random], new Vector2(randX, randY), Quaternion.identity);
-            enemies.Add(enemyTypes[random]);
-
-
+            GameObject randomEnemy = enemyTypes[random];
+            randomEnemy.GetComponent<enemy_main_controller>().player = player;
+            Instantiate(randomEnemy, new Vector2(randX, randY), Quaternion.identity);
+            enemies.Add(randomEnemy);
         }
     }    
 }

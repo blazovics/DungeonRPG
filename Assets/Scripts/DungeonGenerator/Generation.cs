@@ -17,13 +17,13 @@ public class Generation : MonoBehaviour
 
     public int width = 30;
     public int wall_width = 2;
-    public static int smooth8 = 4;
+    public static int smooth8 = 3;
     public static int smooth4 = 4;
 
     // Start is called before the first frame update
     public void Start()
     {
-        map = new Map(5, 1, tiles, wallTilemap, groundTilemap, groundTile, wallTile, exit);
+        map = new Map(5, 25, tiles, wallTilemap, groundTilemap, groundTile, wallTile, exit);
         map.drawWholeMap();
         
         //print(map.GetStartingRoom().x + " " + map.GetStartingRoom().y);
@@ -343,14 +343,9 @@ public class Generation : MonoBehaviour
                         wallTilemap.SetTile(new Vector3Int(y - max_width / 2, x - max_width / 2, 0), wallTile);
                     }
                 }
-            }
-
-
+            }                                
+             
             /*
-            foreach (var item in rooms)
-            {
-                print(item.x + " " + item.y);
-            }            
             foreach (var item in rooms)
             {
                 //print("asdad" + path[0].x + item.x + "||" + path[0].y + item.y);
@@ -359,7 +354,7 @@ public class Generation : MonoBehaviour
                     print(item.x + "szoba" + item.y);
                     print(path[0].x + "path" + path[0].y);
                 }
-            }
+            }      
             */
 
         }

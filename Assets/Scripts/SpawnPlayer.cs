@@ -7,6 +7,8 @@ public class SpawnPlayer : MonoBehaviour
     public Generation mapgen;
     public GameObject player;
     Generation.Room firstRoom;
+    int randX, randY;
+    int counter;
 
     public void Start()
     {
@@ -16,16 +18,17 @@ public class SpawnPlayer : MonoBehaviour
 
     public void Spawn()
     {
-        for (int y = 0; y < firstRoom.width; y++)
+        while (counter < 1000)
         {
-            for (int x = 0; x < firstRoom.width; x++)
+            randX = UnityEngine.Random.Range(0, 29);
+            randY = UnityEngine.Random.Range(29 * firstRoom.x, 29 * (firstRoom.x + 1));
+
+            if (mapgen.map.GetGroundTilemap().GetTile(new Vector3Int(-74 + randX, -74 + randY, 0)) && getPointValue8(randX, randY%30))
             {
-                if (firstRoom.data[y,x] == 0 && getPointValue8(y,x))
-                {
-                    //GameObject.Instantiate(exit, new Vector3((y - max_width / 2) + 1.0f, (x - max_width / 2) + 1.0f, 0), Quaternion.identity);
-                    player.transform.position = new Vector3(-54 + 30 *firstRoom.y, -70 + 30* firstRoom.x, 0);                    
-                }
+                player.transform.position = new Vector3(-74 + randX, -74 + randY, 0);
+                break;
             }
+            counter++;
         }
     }
 
